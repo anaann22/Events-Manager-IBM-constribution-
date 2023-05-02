@@ -18,6 +18,7 @@ const UserSchema = new mongoose.Schema({
     avatarUrl : String, //nu este un obiect => nu este obligator, nu este necesar un tip
 }, {
     timestamps : true, //data crearii
+    isAdmin:{type: Boolean, default: false}
 });
 
 //am creat modelul userului
