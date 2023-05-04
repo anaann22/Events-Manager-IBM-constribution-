@@ -9,6 +9,8 @@ body {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background-image: radial-gradient(#f2fcfe 0%, #1c92d2 60%, #11193b 100%);
-
+	/* background-image: radial-gradient(#f2fcfe 0%, #CDB892 60%, #C6A96C 100%); */
+	background-image: radial-gradient(#f2fcfe 0%, #707070 60%, #000000 100%);
+	filter: blur(4px);
+	-webkit-filter: blur(4px);
 }
