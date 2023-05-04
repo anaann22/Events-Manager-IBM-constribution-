@@ -3,6 +3,7 @@ import { Container, TextField, Button, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import ParticleBackground from '../Atoms/ParticleBackground';
+import '../../Style/Login.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -17,12 +18,11 @@ const LoginPage = () => {
     <>
       <ParticleBackground />
       <Container maxWidth="xs">
-        <Box
+        <Box className = "box"
           display="flex"
           flexDirection="column"
           alignItems="center"
           justifyContent="center"
-          minHeight="100vh"
         >
           <Typography variant="h4" component="h1" gutterBottom>
             Login
@@ -45,12 +45,16 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button
+            <Button className='button'
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
-              sx={{ mt: 3 }}
+              sx={{ mt: 3, 
+                borderRadius: '10px',
+                backgroundColor: '#000000', 
+                '&:hover': { backgroundColor: '#9F9F9F' } 
+              }}
             >
               Login
             </Button>

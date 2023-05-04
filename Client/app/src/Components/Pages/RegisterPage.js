@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
-
+import ParticleBackground from '../Atoms/ParticleBackground';
+import '../../Style/Login.css';
 
 const RegisterPage = () => {
     const [email, setEmail] = useState('');
@@ -15,12 +16,13 @@ const RegisterPage = () => {
 
     return (
         <Container maxWidth="xs">
-            <Box
+            <ParticleBackground/>
+            <Box className = "box"
+
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
-                justifyContent="center"
-                minHeight="100vh"
+                justifyContent="center"s
             >
                 <Typography variant="h4" component="h1" gutterBottom>
                     Înregistrare
@@ -57,7 +59,11 @@ const RegisterPage = () => {
                         fullWidth
                         variant="contained"
                         color="primary"
-                        sx={{ mt: 3 }}
+                        sx={{ mt: 3, 
+                            backgroundColor: '#000000', 
+                            '&:hover': { backgroundColor: '#9F9F9F' }, 
+                            borderRadius: '10px'
+                        }}
                     >
                         Înregistrează-te
                     </Button>
