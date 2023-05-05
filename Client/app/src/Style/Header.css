@@ -24,9 +24,3 @@
     justify-content: center;
     margin-right: 1rem;
   }
-  
-  .userButton {
-    right: 0;
-    height: 2px;
-    background-image: image('../Images/user.png');
-  }
