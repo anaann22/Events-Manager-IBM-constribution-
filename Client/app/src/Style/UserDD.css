@@ -20,7 +20,7 @@ code {
     border-radius: 50%;
     overflow: hidden;
     cursor: pointer;
-    /* background-color: #fff; */
+    background-color: #fff;
   }
   
   .dropdown-menu{

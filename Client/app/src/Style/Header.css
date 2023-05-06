@@ -5,14 +5,22 @@
     width: 100%;
     position: relative;
     padding: 0.5rem 0rem;
-    background-color: rgb(202, 202, 202);
+    /* background-color: rgb(202, 202, 202); */
+    background-color: black;
     border-bottom: 2px solid;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+
+  .logo{
+    margin-left: 1rem;
   }
 
   
   .title {
-    color: black;
-    font-family: 'Cursive',	'Lucida Handwriting';
+    /* color: black; */
+    color: white;
+    font-family: 'Serif', 'Times New Roman';
     font-size: 1.3rem;
     margin-left: 0rem;
   }
