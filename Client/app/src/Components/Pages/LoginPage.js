@@ -60,7 +60,7 @@ const LoginPage = () => {
             </Button>
 
             <Link to="/register" sx={{ textDecoration: 'none', mt: 2 }}>
-              <Typography variant="body2" align="center">
+              <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
                 Nu ai un cont? Înregistrează-te
               </Typography>
             </Link>

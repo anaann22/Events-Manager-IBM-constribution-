@@ -62,7 +62,7 @@ const RegisterPage = () => {
                     </Button>
                 </form>
                 <Link to="/login" sx={{ textDecoration: 'none', mt: 2 }}>
-                    <Typography variant="body2" align="center">
+                    <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
                         Ai deja un cont? Autentifică-te
                     </Typography>
                 </Link>
