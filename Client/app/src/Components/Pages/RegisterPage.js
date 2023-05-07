@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
 import ParticleBackground from '../Atoms/ParticleBackground';
+import PasswordCheck from '../Molecules/PasswordCheck';
 import '../../Style/Login.css';
 
 const RegisterPage = () => {
@@ -36,15 +37,7 @@ const RegisterPage = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    <TextField
-                        required
-                        fullWidth
-                        margin="normal"
-                        label="Parola"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <PasswordCheck password={password} />
                     <TextField
                         required
                         fullWidth
@@ -53,7 +46,7 @@ const RegisterPage = () => {
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                />
+                    />
                     <Button
                         type="submit"
                         fullWidth
