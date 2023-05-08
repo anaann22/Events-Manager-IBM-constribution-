@@ -42,7 +42,11 @@ const RegisterPage = () => {
                         required
                         fullWidth
                         margin="normal"
+<<<<<<< HEAD
                         label="Confirmă parola"
+=======
+                        label="Confirm password"
+>>>>>>> e908649f84f9fd56f5e727e968334f10cebb6bfa
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
@@ -62,7 +66,11 @@ const RegisterPage = () => {
                     </Button>
                 </form>
                 <Link to="/login" sx={{ textDecoration: 'none', mt: 2 }}>
+<<<<<<< HEAD
                     <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
+=======
+                    <Typography variant="body2" align="center" marginTop="1rem">
+>>>>>>> e908649f84f9fd56f5e727e968334f10cebb6bfa
                         Ai deja un cont? Autentifică-te
                     </Typography>
                 </Link>

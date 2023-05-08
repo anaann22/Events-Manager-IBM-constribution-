@@ -81,4 +81,8 @@ const PasswordCheck = () => {
   );
 };
 
+<<<<<<< HEAD
 export default PasswordCheck;
+=======
+export default PasswordCheck;
+>>>>>>> e908649f84f9fd56f5e727e968334f10cebb6bfa

@@ -3,6 +3,7 @@ import { Container, TextField, Button, Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import ParticleBackground from '../Atoms/ParticleBackground';
+import ViewPassword from '../Molecules/ViewPassword';
 import '../../Style/Login.css';
 
 const LoginPage = () => {
@@ -36,15 +37,8 @@ const LoginPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <TextField
-              required
-              fullWidth
-              margin="normal"
-              label="Password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <ViewPassword password={password} />
+            
             <Button className='button'
               type="submit"
               fullWidth
@@ -60,7 +54,11 @@ const LoginPage = () => {
             </Button>
 
             <Link to="/register" sx={{ textDecoration: 'none', mt: 2 }}>
+<<<<<<< HEAD
               <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
+=======
+              <Typography className = "link" variant="body2" align="center" marginTop="1rem">
+>>>>>>> e908649f84f9fd56f5e727e968334f10cebb6bfa
                 Nu ai un cont? Înregistrează-te
               </Typography>
             </Link>
