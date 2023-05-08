@@ -1,0 +1,9 @@
+.rotate-button {
+  transition: transform 0.3s ease;
+  border-radius: 40%;
+}
+  
+.rotate-button.open {
+  transform: rotate(180deg);
+  border-radius: 40%;
+}

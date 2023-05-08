@@ -13,7 +13,7 @@ code {
   
   .menu-trigger img{
     position: absolute;
-    top: 20px;
+    top: 0.75rem;
     right: 20px;
     height: 45px;
     width: 45px;
