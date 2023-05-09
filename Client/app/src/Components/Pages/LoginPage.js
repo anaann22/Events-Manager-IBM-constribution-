@@ -54,11 +54,7 @@ const LoginPage = () => {
             </Button>
 
             <Link to="/register" sx={{ textDecoration: 'none', mt: 2 }}>
-<<<<<<< HEAD
-              <Typography variant="body2" align="center" sx={{ marginTop: 2 }}>
-=======
               <Typography className = "link" variant="body2" align="center" marginTop="1rem">
->>>>>>> e908649f84f9fd56f5e727e968334f10cebb6bfa
                 Nu ai un cont? Înregistrează-te
               </Typography>
             </Link>
