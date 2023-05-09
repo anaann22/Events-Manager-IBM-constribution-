@@ -12,7 +12,7 @@ const CustomSidebar = () => {
   const { collapseSidebar } = useProSidebar();
 
   return (
-    <Sidebar style={{ height: '56.76rem' }}>
+    <Sidebar style={{ height: '86.1vh',backgroundColor: 'red' }}>
       <Menu>
         <MenuItem
           icon={<MenuOutlinedIcon />}
