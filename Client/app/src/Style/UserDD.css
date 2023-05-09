@@ -25,10 +25,10 @@ code {
   
   .dropdown-menu{
     position: absolute;
-    top: 50px;
+    top: 67px;
     right: 20px;
     /* background-color: #fff; */
-    border-radius: var(--border-radius);
+    border-radius: 20px;
     padding: 10px 20px;
     width: 200px;
   }
@@ -49,6 +49,8 @@ code {
     visibility: visible;
     transform: translateY(0);
     transition: var(--speed) ease;
+    border: 1px solid;
+    border-color: antiquewhite;
   }
   
   .dropdown-menu.inactive{
