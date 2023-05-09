@@ -17,9 +17,9 @@ const UserPage = () => {
     <ProSidebarProvider>
       <div className="user-page-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <Header />
-        <div style={{ flexGrow: 1, display: 'flex' }}>
+        <div style={{ flexGrow: 1, display: 'flex', paddingBottom: '5.1rem' }}> {/* paddingBottom added */}
           <CustomSidebar />
-          <main style={{ flexGrow: 1 }}>
+          <main style={{ flexGrow: 1, overflowY: 'auto' }}> {/* overflowY added */}
             {/* Add your content here */}
           </main>
         </div>
