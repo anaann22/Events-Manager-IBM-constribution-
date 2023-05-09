@@ -1,0 +1,72 @@
+ eveniment: {
+      data: string,
+      numeEveniment: string,
+      participanti: string[],
+      locatie: string,
+      descriere: string,
+      organizator: string,
+      // alte atribute
+    }
+
+    evenimente: [
+      {
+        id: 1,
+        data: '2023-05-01',
+        numeEveniment: 'Petrecere de 1 Mai',
+        participanti: ['John', 'Mary', 'Alex'],
+        locatie: 'Parcul Central',
+        descriere: 'O petrecere cu muzică și grătar',
+        organizator: 'Asociația de tineret'
+      },
+      {
+        id: 2,
+        data: '2023-06-15',
+        numeEveniment: 'Curs de programare web',
+        participanti: ['Alex', 'Sarah', 'Tom'],
+        locatie: 'Biblioteca Centrală',
+        descriere: 'Un curs de programare web pentru începători',
+        organizator: 'Asociația de IT'
+      }
+    ],
+
+    evenimentSelectat: null
+
+
+  selectareEveniment = (eveniment) => {
+    this.setState({ evenimentSelectat: eveniment });
+  }
+
+Atunci când starea se actualizează, React va re-renderiza componenta pentru a 
+afișa informațiile actualizate. this.state este utilizat pentru a accesa valorile 
+stocate în starea componentei și pentru a le utiliza în renderizarea componentei.
+
+    creareEveniment = (eveniment) --- pe care îl vom adăuga la array-ul de evenimente existent.--- => {
+    const { evenimente } = this.state;
+    const id = evenimente.length > 0 ? evenimente[evenimente.length - 1].id + 1 : 1;
+    this.setState({
+      evenimente: [...evenimente, { ...eveniment, id }]
+    });
+  }
+  actualizează starea componentei React cu un nou array de evenimente care include vechile evenimente și noul eveniment.
+  (...) este utilizat pentru a prelua toate elementele din array-ul evenimente, 
+  și apoi pentru a le adăuga într-un nou array. În acest fel, obținem o copie a array-ului original, 
+  căreia îi putem adăuga un nou eveniment fără a modifica array-ul origina
+
+  actualizareEveniment = (evenimentActualizat) => {
+    const { evenimente } = this.state;
+    this.setState({
+      evenimente: evenimente.map(eveniment => eveniment.id === evenimentActualizat.id ? evenimentActualizat : eveniment),
+      evenimentSelectat: null
+    });
+  }
+
+  stergereEveniment = (evenimentSters) => {
+    const { evenimente } = this.state;  ----extrage proprietatea evenimente
+    this.setState({
+      evenimente: evenimente.filter(eveniment => eveniment.id !== evenimentSters.id),
+      evenimentSelectat: null
+    });
+  }
+
+  ---a returna un nou array de evenimente care nu conține evenimentul cu ID-ul egal cu cel al evenimentului dat ca parametru 
+  (evenimentSters.id).
