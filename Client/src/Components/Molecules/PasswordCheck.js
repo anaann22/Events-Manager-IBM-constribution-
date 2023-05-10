@@ -80,5 +80,4 @@ const PasswordCheck = () => {
     </div>
   );
 };
-
 export default PasswordCheck;
