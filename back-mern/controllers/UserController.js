@@ -9,7 +9,6 @@ export const register = async(req, res) => {
         if (!errors.isEmpty()){
             return res.status(400).json(errors.array());
         }
-
         const email = req.body.email;
         const existingUser = await UserModel.findOne({ email });
         if (existingUser) {
@@ -17,14 +16,16 @@ export const register = async(req, res) => {
         }
 
         const password = req.body.password;
+        console.log({email,password})
+
         const salt = await bcrypt.genSalt(10);
         const passwordHash = await bcrypt.hash(password, salt);
 
         const doc = new UserModel({
             email,
-            fullName: req.body.fullName,
+            fullName: req.body?.fullName,
             passwordHash,
-            avatarUrl: req.body.avatarUrl,
+            avatarUrl: req.body?.avatarUrl,
         });
 
         const user = await doc.save();
@@ -72,7 +73,7 @@ export const login = async (req, res) => {
         });
       }
   
-      // Genereaza tokenul JWT
+      // Genereaza tokenul JWT-SEPARAT
       const token = jwt.sign(
         {
           _id: user._id,

@@ -3,7 +3,7 @@ import checkAuth from './utils/checkAuth.js';
 import {registerValidation} from './validations/auth.js'
 import mongoose from 'mongoose'; //legatura cu mongodb
 import * as UserController from './controllers/UserController.js'
-
+import cors from 'cors'
 //cream legatura cu mongodb
 mongoose
 .connect('mongodb+srv://ana:gorihonamu85@cluster0.yivkgdq.mongodb.net/mern?retryWrites=true&w=majority', //linkul pt baza de date
@@ -12,6 +12,11 @@ mongoose
 
 const app = express();
 app.use(express.json());
+const corsOptions = {
+   origin: 'http://localhost:3000',
+   // optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+ }
+app.use(cors(corsOptions))
 
 //async await - gasirea utilizatorului
 app.post('/auth/login', UserController.login);
