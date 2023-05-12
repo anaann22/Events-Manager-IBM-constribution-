@@ -8,14 +8,15 @@ import '../../Style/Login.css';
 import axios from 'axios';
 
 function RegisterPage() {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(password);
-    },[password]);
+    }, [password]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,11 +27,12 @@ function RegisterPage() {
 
         try {
             const response = await axios.post('http://localhost:4444/auth/register', {
+                name,
                 email,
                 password,
             });
 
-            navigate('/login'); 
+            navigate('/login');
             console.log("ceva");
         } catch (error) {
             console.error(error);
@@ -55,11 +57,18 @@ function RegisterPage() {
                         required
                         fullWidth
                         margin="normal"
+                        label="Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                    <TextField
+                        required
+                        fullWidth
+                        margin="normal"
                         label="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    {/* Înlocuiește câmpul TextField pentru parolă cu componenta PasswordCheck */}
                     <PasswordCheck onPasswordChange={(e) => setPassword(e.target.value)} />
                     <TextField
                         required
