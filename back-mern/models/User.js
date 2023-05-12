@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const UserSchema = new mongoose.Schema({
     fullName : {
         type : String,
-        required : false, //atribut obligator
+        required : true, //atribut obligator
     },
     email : {
         type : String,

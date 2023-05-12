@@ -14,7 +14,7 @@ import {
   VisibilityOff as VisibilityOffIcon,
 } from "@mui/icons-material";
 
-const PasswordCheck = ({ onPasswordChange }) => {
+const PasswordCheck = ({ onPasswordChange, onPasswordValidation }) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [validationVisible, setValidationVisible] = useState(false);
@@ -22,11 +22,25 @@ const PasswordCheck = ({ onPasswordChange }) => {
   const checkPattern = (pattern) => {
     return pattern.test(password);
   };
+  
+  const isPasswordValid = () => {
+    console.log(password.length);
+    return (
+      checkPattern(/[a-z]/) && // Cel puțin o literă mică
+      checkPattern(/[A-Z]/) && // Cel puțin o literă mare
+      checkPattern(/\d/) && // Cel puțin o cifră
+      password.length >= 7 // Lungimea parolei de cel puțin 8 caractere
+    );
+  };
+  
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
     if (onPasswordChange) {
       onPasswordChange(event);
+    }
+    if (onPasswordValidation) {
+      onPasswordValidation(isPasswordValid());
     }
   };
 

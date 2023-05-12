@@ -8,10 +8,12 @@ import '../../Style/Login.css';
 import axios from 'axios';
 
 function RegisterPage() {
-    const [name, setName] = useState('');
+    const [fullName, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [isPasswordValid, setPasswordValid] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,14 +22,22 @@ function RegisterPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrorMessage('');
+        if (!isPasswordValid) {
+            setErrorMessage(
+                'Parola trebuie să conțină cel puțin 8 caractere, o literă mare, o literă mică și un număr.'
+            );
+            return;
+        }
+
         if (password !== confirmPassword) {
-            console.log('nu merge nici acm');
+            setErrorMessage('Parolele introduse nu se potrivesc.');
             return;
         }
 
         try {
             const response = await axios.post('http://localhost:4444/auth/register', {
-                name,
+                fullName,
                 email,
                 password,
             });
@@ -58,7 +68,7 @@ function RegisterPage() {
                         fullWidth
                         margin="normal"
                         label="Name"
-                        value={name}
+                        value={fullName}
                         onChange={(e) => setName(e.target.value)}
                     />
                     <TextField
@@ -69,7 +79,10 @@ function RegisterPage() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    <PasswordCheck onPasswordChange={(e) => setPassword(e.target.value)} />
+                    <PasswordCheck
+                        onPasswordChange={(e) => setPassword(e.target.value)}
+                        onPasswordValidation={(isValid) => setPasswordValid(isValid)}
+                    />
                     <TextField
                         required
                         fullWidth
@@ -79,6 +92,11 @@ function RegisterPage() {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
+                    {errorMessage && (
+                        <Typography variant="body2" color="error">
+                            {errorMessage}
+                        </Typography>
+                    )}
                     <Button
                         type="submit"
                         fullWidth
