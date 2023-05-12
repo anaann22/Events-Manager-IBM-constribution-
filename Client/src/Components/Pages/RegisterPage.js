@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import LoginPage from '../Pages/LoginPage';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
 import ParticleBackground from '../Atoms/ParticleBackground';
 import PasswordCheck from '../Molecules/PasswordCheck';
@@ -13,9 +12,11 @@ function RegisterPage() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
-useEffect(()=>{
-console.log(password)
-},[password])
+
+    useEffect(()=>{
+        console.log(password);
+    },[password]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
@@ -36,72 +37,62 @@ console.log(password)
         }
     };
 
-return (
-    <Container maxWidth="xs">
-        <ParticleBackground />
-        <Box
-            className="box"
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-        >
-            <Typography variant="h4" component="h1" gutterBottom>
-                Înregistrare
-            </Typography>
-            {/* Adăugați onSubmit la formular aici */}
-            <form onSubmit={handleSubmit}>
-                <TextField
-                    required
-                    fullWidth
-                    margin="normal"
-                    label="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <TextField
-                    required
-                    type='password'
-                    fullWidth
-                    margin="normal"
-                    label="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                {/* <PasswordCheck handlePasswordChange={(e)=>setPassword(e)}/> */}
-                <TextField
-                    required
-                    fullWidth
-                    margin="normal"
-                    label="Confirm password"
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    sx={{
-                        mt: 3,
-                        backgroundColor: '#000000',
-                        '&:hover': { backgroundColor: '#9F9F9F' },
-                        borderRadius: '10px',
-                    }}
-                >
-                    Înregistrează-te
-                </Button>
-            </form>
-            <Link to="/login" sx={{ textDecoration: 'none', mt: 2 }}>
-                <Typography variant="body2" align="center" marginTop="1rem">
-                    Ai deja un cont? Autentifică-te
+    return (
+        <Container maxWidth="xs">
+            <ParticleBackground />
+            <Box
+                className="box"
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+            >
+                <Typography variant="h4" component="h1" gutterBottom>
+                    Înregistrare
                 </Typography>
-            </Link>
-        </Box>
-    </Container>
-);
-
+                <form onSubmit={handleSubmit}>
+                    <TextField
+                        required
+                        fullWidth
+                        margin="normal"
+                        label="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    {/* Înlocuiește câmpul TextField pentru parolă cu componenta PasswordCheck */}
+                    <PasswordCheck onPasswordChange={(e) => setPassword(e.target.value)} />
+                    <TextField
+                        required
+                        fullWidth
+                        margin="normal"
+                        label="Confirm password"
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        sx={{
+                            mt: 3,
+                            backgroundColor: '#000000',
+                            '&:hover': { backgroundColor: '#9F9F9F' },
+                            borderRadius: '10px',
+                        }}
+                    >
+                        Înregistrează-te
+                    </Button>
+                </form>
+                <Link to="/login" sx={{ textDecoration: 'none', mt: 2 }}>
+                    <Typography variant="body2" align="center" marginTop="1rem">
+                        Ai deja un cont? Autentifică-te
+                    </Typography>
+                </Link>
+            </Box>
+        </Container>
+    );
 };
 
 export default RegisterPage;

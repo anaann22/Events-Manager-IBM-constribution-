@@ -1,9 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { Box, TextField, IconButton, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import { Check as CheckIcon, Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon } from "@mui/icons-material";
+import React, { useState } from "react";
+import {
+  Box,
+  TextField,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import {
+  Check as CheckIcon,
+  Visibility as VisibilityIcon,
+  VisibilityOff as VisibilityOffIcon,
+} from "@mui/icons-material";
 
-const PasswordCheck = (passwordRef,onPasswordChange) => {
-  const [password, setPassword] = useState('');
+const PasswordCheck = ({ onPasswordChange }) => {
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [validationVisible, setValidationVisible] = useState(false);
 
@@ -11,10 +23,11 @@ const PasswordCheck = (passwordRef,onPasswordChange) => {
     return pattern.test(password);
   };
 
-
-
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    if (onPasswordChange) {
+      onPasswordChange(event);
+    }
   };
 
   const toggleShowPassword = () => {
@@ -38,16 +51,16 @@ const PasswordCheck = (passwordRef,onPasswordChange) => {
           onChange={handlePasswordChange}
           onFocus={toggleValidationVisibility}
           onBlur={toggleValidationVisibility}
-          sx={{ pr: "40px" }} // adăugat stil personalizat
+          sx={{ pr: "40px" }}
           InputProps={{
             endAdornment: (
               <IconButton
                 onClick={toggleShowPassword}
-                sx={{ position: "absolute", right: 0 }} // adăugat stil personalizat
+                sx={{ position: "absolute", right: 0 }}
               >
                 {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
               </IconButton>
-            )
+            ),
           }}
         />
         <Box display={validationVisible ? "block" : "none"}>
@@ -72,7 +85,9 @@ const PasswordCheck = (passwordRef,onPasswordChange) => {
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <CheckIcon color={password.length >= 8 ? "success" : "error"} />
+                <CheckIcon
+                  color={password.length >= 8 ? "success" : "error"}
+                />
               </ListItemIcon>
               <ListItemText>At least 8 characters</ListItemText>
             </ListItem>
@@ -82,4 +97,5 @@ const PasswordCheck = (passwordRef,onPasswordChange) => {
     </div>
   );
 };
+
 export default PasswordCheck;

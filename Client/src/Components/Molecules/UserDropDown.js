@@ -5,7 +5,6 @@ import logout from '../../Images/logout.png';
 import '../../Style/UserDD.css';
 
 import { Link } from 'react-router-dom';
-
 import React, {useState, useEffect, useRef} from 'react';
 
 function UserDropDown() {
