@@ -1,33 +1,43 @@
-import express from 'express'; //generare web server
+import express from 'express';
 import checkAuth from './utils/checkAuth.js';
-import {registerValidation} from './validations/auth.js'
-import mongoose from 'mongoose'; //legatura cu mongodb
-import * as UserController from './controllers/UserController.js'
+import { registerValidation } from './validations/auth.js';
+import mongoose from 'mongoose';
+import * as UserController from './controllers/UserController.js';
+import cors from 'cors';
+import dotenv from 'dotenv';
 
-//cream legatura cu mongodb
+// Load environment variables from .env file
+dotenv.config();
+
+// Connect to MongoDB
 mongoose
-.connect('mongodb+srv://ana:gorihonamu85@cluster0.yivkgdq.mongodb.net/mern?retryWrites=true&w=majority', //linkul pt baza de date
-).then(() => console.log('db ok')) //mesaj care este afisat in consola(terminal), daca a reusit legatura cu bd, apare dupa ce merge randul 22 
-.catch((err)=>console.log('db error', err));
+  .connect(process.env.DB_CONNECTION_STRING)
+  .then(() => console.log('db ok'))
+  .catch((err) => console.log('db error', err));
 
 const app = express();
 app.use(express.json());
 
-//async await - gasirea utilizatorului
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN,
+};
+app.use(cors(corsOptions));
+
+// Routes
 app.post('/auth/login', UserController.login);
 app.post('/auth/register', UserController.register);
-//utilizatorul primeste date despre el
-app.get('/auth/me', checkAuth,  UserController.getMe)
+app.get('/auth/me', checkAuth, UserController.getMe);
 
-
-//portul care l-am folosit   ---localhost:4444
-app.listen(4444, (err) => {
-   if(err){
+// Start server
+const port = process.env.PORT || 4444;
+app.listen(port, (err) => {
+  if (err) {
     return console.log(err);
-   }
-   console.log("ok");
-})
+  }
+  console.log(`Server running on port ${port}`);
+});
 
-//npm install express-validator - validare a datelor trimise
-// npm install jsonwebtoken - transmiterea obiectelor sub forma de token
-//npm install bcrypt - codificare parola
+// Dependencies
+// npm install express-validator - validate user input
+// npm install jsonwebtoken - transmit objects as tokens
+// npm install bcrypt - encrypt passwords

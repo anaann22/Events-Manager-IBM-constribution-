@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, TextField, IconButton, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import { Check as CheckIcon, Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon } from "@mui/icons-material";
 
-const PasswordCheck = () => {
-  const [password, setPassword] = useState("");
+const PasswordCheck = (passwordRef,onPasswordChange) => {
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [validationVisible, setValidationVisible] = useState(false);
 
   const checkPattern = (pattern) => {
     return pattern.test(password);
   };
+
+
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
