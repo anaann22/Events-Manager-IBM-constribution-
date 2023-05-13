@@ -29,23 +29,25 @@ function RegisterPage() {
             );
             return;
         }
-
+    
         if (password !== confirmPassword) {
             setErrorMessage('Parolele introduse nu se potrivesc.');
             return;
         }
-
+    
         try {
             const response = await axios.post('http://localhost:4444/auth/register', {
                 fullName,
                 email,
                 password,
             });
-
+    
             navigate('/login');
             console.log("ceva");
         } catch (error) {
             console.error(error);
+            const backendErrorMessage = error.response?.data?.message;
+            setErrorMessage(backendErrorMessage || 'A apărut o eroare la înregistrare. Încercați din nou.');
         }
     };
 
