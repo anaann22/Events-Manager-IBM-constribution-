@@ -3,14 +3,14 @@
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     margin: 100px auto;
-    max-width: 600px;
+    max-width: 800px;
     overflow: hidden;
     justify-content: center;
   }
   
   .card-header {
     background-color: #f2f2f2;
-    padding: 20px;
+    padding: 25px;
   }
   
   .card-title {
@@ -19,7 +19,7 @@
   
   .card-body {
     display: flex;
-    padding: 40px;
+    padding: 30px;
   }
   
   .profile-picture {
@@ -56,4 +56,8 @@
     margin: 10px 5px;
     cursor: pointer;
   }
-  
+
+  .descriere {
+    text-align: center;
+    padding-top: 15px;
+  }
