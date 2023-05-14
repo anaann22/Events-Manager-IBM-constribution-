@@ -51,6 +51,7 @@ code {
     transition: var(--speed) ease;
     border: 1px solid;
     border-color: antiquewhite;
+    background-color: #fff;
   }
   
   .dropdown-menu.inactive{

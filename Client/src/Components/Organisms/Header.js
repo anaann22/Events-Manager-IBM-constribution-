@@ -16,7 +16,7 @@ const Header = () => {
           objectFit: 'contain',
         }}
       />
-      <h2 className="title">Company Social Events</h2>
+      <h2 className="title">Welcome to your company events!</h2>
       <User></User>
     </div>
   );
