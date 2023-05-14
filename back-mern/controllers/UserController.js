@@ -55,48 +55,52 @@ export const register = async(req, res) => {
 };
 
 export const login = async (req, res) => {
-    const { email, password } = req.body;
-  
-    try {
-      // Verifica dacă utilizatorul există în baza de date
-      const user = await UserModel.findOne({ email });
-      if (!user) {
-        return res.status(404).json({
-          message: 'Utilizator necunoscut.',
-        });
-      }
-  
-      // Verifica dacă parola introdusă este corectă
-      const isValidPass = await bcrypt.compare(password, user.passwordHash);
-      if (!isValidPass) {
-        return res.status(404).json({
-          message: 'Parolă invalidă.',
-        });
-      }
-  
-      // Genereaza tokenul JWT-SEPARAT
-      const token = jwt.sign(
-        {
-          _id: user._id,
-        },
-        "secret",
-        {
-          expiresIn: '30d',
-        },
-      );
-  
-      // Returnează tokenul și datele utilizatorului
-      res.status(200).json({
-        ...user.toObject(),
-        token,
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        message: 'Eroare la conectare.',
+  const { email, password } = req.body;
+
+  // Afiseaza emailul si parola in consola
+  console.log(`Email: ${email}, Parola: ${password}`);
+
+  try {
+    // Verifica dacă utilizatorul există în baza de date
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({
+        message: 'Utilizator necunoscut.',
       });
     }
-  };
+
+    // Verifica dacă parola introdusă este corectă
+    const isValidPass = await bcrypt.compare(password, user.passwordHash);
+if (!isValidPass) {
+  return res.status(401).json({
+    message: 'Parolă invalidă.',
+  });
+}
+
+    // Genereaza tokenul JWT-SEPARAT
+    const token = jwt.sign(
+      {
+        _id: user._id,
+      },
+      "secret",
+      {
+        expiresIn: '30d',
+      },
+    );
+
+    // Returnează tokenul și datele utilizatorului
+    res.status(200).json({
+      ...user.toObject(),
+      token,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: 'Eroare la conectare.',
+    });
+  }
+};
+
   
 export const getMe = async(req, res) =>{
     try{

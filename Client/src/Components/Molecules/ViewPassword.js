@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import { Box, TextField, IconButton, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import { Check as CheckIcon, Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon } from "@mui/icons-material";
+import {
+  Box,
+  TextField,
+  IconButton,
+} from "@mui/material";
+import {
+  Visibility as VisibilityIcon,
+  VisibilityOff as VisibilityOffIcon,
+} from "@mui/icons-material";
 
-const ViewPassword = () => {
+const ViewPassword = ({ onPasswordChange }) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    onPasswordChange(event); // Trimite modificarea parolei către componenta părinte
   };
 
   const toggleShowPassword = () => {
@@ -25,7 +33,6 @@ const ViewPassword = () => {
           type={showPassword ? "text" : "password"}
           value={password}
           onChange={handlePasswordChange}
-
           sx={{ pr: "40px" }} // adăugat stil personalizat
           InputProps={{
             endAdornment: (
@@ -35,12 +42,12 @@ const ViewPassword = () => {
               >
                 {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
               </IconButton>
-            )
+            ),
           }}
         />
-    </Box>
+      </Box>
     </div>
-  )
+  );
 };
 
 export default ViewPassword;
