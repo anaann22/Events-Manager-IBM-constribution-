@@ -22,3 +22,4 @@ export default (req, res, next) => {
     }
 
 }
+export { default as checkAuth } from './checkAuth.js';

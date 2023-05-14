@@ -1,8 +1,9 @@
 import express from 'express';
-import checkAuth from './utils/checkAuth.js';
-import { registerValidation } from './validations/auth.js';
+import multer from 'multer';
+import { handleValidationErrors, checkAuth } from './utils/index.js';
+import { registerValidation, loginValidation, postCreateValidation } from './validations.js';
 import mongoose from 'mongoose';
-import * as UserController from './controllers/UserController.js';
+import { PostController, UserController } from './controllers/index.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
@@ -16,7 +17,20 @@ mongoose
   .catch((err) => console.log('db error', err));
 
 const app = express();
+
+const storage = multer.diskStorage({
+  destination: (_, __, cb) => {
+    cb(null, 'uploads');
+  },
+  filename: (_, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
+
 app.use(express.json());
+app.use('/uploads', express.static('uploads'));
 
 const corsOptions = {
   origin: process.env.CORS_ORIGIN,
@@ -24,9 +38,21 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Routes
-app.post('/auth/login', UserController.login);
-app.post('/auth/register', UserController.register);
+app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login);
+app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
 app.get('/auth/me', checkAuth, UserController.getMe);
+
+app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
+  res.json({
+    url: `/uploads/${req.file.originalname}`,
+  });
+});
+
+app.post('/posts', checkAuth, postCreateValidation, PostController.create);
+app.get('/posts', PostController.getAll);
+app.get('/posts/:id', PostController.getOne);
+app.delete('/posts/:id', checkAuth, PostController.remove);
+app.patch('/posts/:id', checkAuth, postCreateValidation, PostController.update);
 
 // Start server
 const port = process.env.PORT || 4444;
