@@ -27,7 +27,7 @@ const Header = () => {
         }}
       />
       <h2 className="title">
-        {user ? `Welcome, ${user.fullName}, to your company events!` : "Welcome to your company events!"}
+        {user ? `Welcome ${user.fullName}!` : "Welcome to your company events!"}
       </h2>
       <User></User>
     </div>
