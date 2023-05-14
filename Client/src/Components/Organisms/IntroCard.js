@@ -23,7 +23,7 @@ const ProfileCard = () => {
             <button className="btn">Login</button>
           </Link>
         </div>
-        <div className="profile-picture">
+        <div className="profile-info">
         <Link to="/register">
             <button className="btn">Register</button>
           </Link>

@@ -5,7 +5,7 @@ import Footer from '../Organisms/Footer';
 import back from '../../Images/wallp.png'
 import '../../Style/UserPage.css';
 import CustomSidebar from '../Organisms/CustomSidebar';
-import Card from '../Organisms/Card';
+import Card from '../Organisms/ProfileCard';
 import axios from 'axios';
 
 const MyProfile = () => {
@@ -16,7 +16,7 @@ const MyProfile = () => {
         <Header />
         <div style={{ flexGrow: 1, display: 'flex'}}> {/* paddingBottom added */}
           <CustomSidebar />
-          <main style={{ flexGrow: 1, overflowY: 'auto'}}> {/* overflowY added */}
+          <main style={{ flexGrow: 1, overflowY: 'auto', paddingTop: '60px'}}> {/* overflowY added */}
           <Card />
           </main>
         </div>
