@@ -40,7 +40,9 @@ function UserDropDown() {
         <div className={`dropdown-menu ${open? 'active' : 'inactive'}`} >
           <h3>Irina<br/><span></span></h3>
           <ul>
-            <DropdownItem img = {user} text = {"My Profile"}/>
+          <Link to="/profile"> 
+                <DropdownItem img = {user} text = {"My profile"}/>
+            </Link>
             <DropdownItem img = {edit} text = {"Edit Profile"}/>
             <DropdownItem img = {settings} text = {"Settings"}/>
             <Link to="/login"> 

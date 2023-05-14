@@ -3,6 +3,7 @@ import LoginPage from './Components/Pages/LoginPage';
 import RegisterPage from './Components/Pages/RegisterPage';
 import UserPage from './Components/Pages/UserPage';
 import CalendarPage from './Components/Pages/CalendarPage';
+import ProfilePage from './Components/Pages/MyProfile';
 import './Style/App.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/user" element={<UserPage />} />
         <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </Router>
   );
