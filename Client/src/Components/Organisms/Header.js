@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'; // Adaugă importurile neces
 import '../../Style/Header.css';
 import logo from '../../Images/logo2.png';
 import User from './../Molecules/UserDropDown';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [user, setUser] = useState(null); // Adaugă starea pentru user
@@ -16,16 +17,18 @@ const Header = () => {
 
   return (
     <div className="container">
-      <img
-        className="logo"
-        alt=""
-        src={logo}
-        style={{
-          maxWidth: '100%',
-          maxHeight: '100%',
-          objectFit: 'contain',
-        }}
-      />
+      <Link to="/user">
+        <img
+          className="logo"
+          alt=""
+          src={logo}
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            objectFit: 'contain',
+          }}
+        />
+      </Link>
       <h2 className="title">
         {user ? `Welcome ${user.fullName}!` : "Welcome to your company events!"}
       </h2>
