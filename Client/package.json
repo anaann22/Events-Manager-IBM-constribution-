@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",
+    "fullcalendar": "^6.1.7",
     "mdb-react-ui-kit": "^6.0.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",

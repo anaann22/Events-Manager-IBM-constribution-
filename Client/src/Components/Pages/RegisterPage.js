@@ -69,7 +69,7 @@ function RegisterPage() {
                         required
                         fullWidth
                         margin="normal"
-                        label="Name"
+                        label="Full Name"
                         value={fullName}
                         onChange={(e) => setName(e.target.value)}
                     />

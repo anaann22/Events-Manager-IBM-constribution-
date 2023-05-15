@@ -20,3 +20,19 @@ export const create = async(req, res) => {
 
     }
 }
+
+export const getAll = async(req, res) => {
+    try{
+        const posts = await PostModel.find().populate('events').exec();
+        res.json(posts)
+    }catch(err){
+        console.log(err)
+        res.status(500).json({
+            message: "Nu s-au gasit date",
+        })
+
+    }
+}
+
+
+  
