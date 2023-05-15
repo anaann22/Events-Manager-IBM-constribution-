@@ -6,7 +6,7 @@ const EventSchema = new mongoose.Schema({
         required: true, // atribut obligatoriu
     },
     eventDate: {
-        type: String,
+        type: Date,
         required: true,
     },
     eventDetails: {

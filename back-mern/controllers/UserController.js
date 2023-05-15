@@ -117,4 +117,11 @@ export const getMe = async(req, res) =>{
       
 };
 
-
+export const getAll = async () => {
+  try {
+    const users = await fullName.find();
+    console.log(users);
+  } catch (error) {
+    console.error(error);
+  }
+};
