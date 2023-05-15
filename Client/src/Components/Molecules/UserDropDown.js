@@ -1,4 +1,4 @@
-import userp from '../../Images/user.png';
+import userp from '../../Images/account.png';
 import edit from '../../Images/edit.png';
 import settings from '../../Images/settings.png';
 import logout from '../../Images/logout.png';

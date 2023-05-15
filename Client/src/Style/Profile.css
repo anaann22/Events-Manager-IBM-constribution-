@@ -22,20 +22,24 @@
   }
   
   .profile-profile {
-    border-radius: 50%;
+    /* border-radius: 50%; */
     margin-right: 20px;
     width: 250px;
+    padding-left: 30px;
     /* padding-top: 40px;
     padding-bottom: 40px; */
   }
   
-  .profile-details {
-    display: flex;
+  .profile-detailsProfile {
+    /* display: flex; */
     flex-direction: column;
+    padding-left: 110px;
+    width: 350px;
+    padding-right: 20px;
   }
   
   .profile-details p {
     margin: 0;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
   }
  
