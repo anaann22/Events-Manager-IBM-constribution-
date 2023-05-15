@@ -60,7 +60,18 @@ const ProfileCard = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="eventDate">Date:</label>
+              <label htmlFor="eventDate">Start date:</label>
+              <input
+                type="Date"
+                className="form-control input-field"
+                id="date"
+                placeholder="Enter event date"
+                value={date}
+                onChange={(e) => setEventDate(e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="eventDate">End date:</label>
               <input
                 type="Date"
                 className="form-control input-field"
