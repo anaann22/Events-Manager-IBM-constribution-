@@ -6,7 +6,6 @@ import mongoose from 'mongoose';
 import { PostController, UserController, EventController } from './controllers/index.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import {EventController} from './controllers/index.js';
 
 // Load environment variables from .env file
 dotenv.config();
