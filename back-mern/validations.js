@@ -18,3 +18,10 @@ export const postCreateValidation = [
     body('tags', 'Tag gresit').optional().isString(),
     body('imageUrl', 'Eroare incarcare imagine').optional().isString(),
   ];
+
+  export const eventValidation = [
+    body('nume', 'nume').isLength({min : 5}),
+    body('data', 'introdu data').isLength({min : 5}),
+    body('person', 'person name').isLength({min : 3}),
+    body('description', 'desc').isLength({min : 5}), //nu este necesar sa apara, dar daca apare verifica
+  ]

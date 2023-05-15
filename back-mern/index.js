@@ -1,9 +1,9 @@
 import express from 'express';
 import multer from 'multer';
 import { handleValidationErrors, checkAuth } from './utils/index.js';
-import { registerValidation, loginValidation, postCreateValidation } from './validations.js';
+import { registerValidation, loginValidation, postCreateValidation, eventValidation } from './validations.js';
 import mongoose from 'mongoose';
-import { PostController, UserController } from './controllers/index.js';
+import { PostController, UserController, EventController } from './controllers/index.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
@@ -53,6 +53,8 @@ app.get('/posts', PostController.getAll);
 app.get('/posts/:id', PostController.getOne);
 app.delete('/posts/:id', checkAuth, PostController.remove);
 app.patch('/posts/:id', checkAuth, postCreateValidation, PostController.update);
+
+app.post('/event/create', eventValidation, EventController.create);
 
 // Start server
 const port = process.env.PORT || 4444;
