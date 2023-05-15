@@ -8,7 +8,8 @@ import { useNavigate } from 'react-router-dom';
 
 const ProfileCard = () => {
   const [title, setEventName] = useState("");
-  const [date, setEventDate] = useState("");
+  const [date1, setEventDate1] = useState("");
+  const [date2, setEventDate2] = useState("");
   const [details, setEventDetails] = useState("");
   const [person, setEventPerson] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
@@ -23,7 +24,8 @@ const ProfileCard = () => {
     try {
         const response = await axios.post('http://localhost:4444/event/create', {
             title,
-            date,
+            date1,
+            date2,
             details,
             person,
         });
@@ -62,23 +64,23 @@ const ProfileCard = () => {
             <div className="form-group">
               <label htmlFor="eventDate">Start date:</label>
               <input
-                type="Date"
+                type="date"
                 className="form-control input-field"
-                id="date"
+                id="date1"
                 placeholder="Enter event date"
-                value={date}
-                onChange={(e) => setEventDate(e.target.value)}
+                value={date1}
+                onChange={(e) => setEventDate1(e.target.value)}
               />
             </div>
             <div className="form-group">
               <label htmlFor="eventDate">End date:</label>
               <input
-                type="Date"
+                type="date"
                 className="form-control input-field"
-                id="date"
+                id="date2"
                 placeholder="Enter event date"
-                value={date}
-                onChange={(e) => setEventDate(e.target.value)}
+                value={date2}
+                onChange={(e) => setEventDate2(e.target.value)}
               />
             </div>
             <div className="form-group">

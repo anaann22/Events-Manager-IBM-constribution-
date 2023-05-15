@@ -21,7 +21,8 @@ export const postCreateValidation = [
 
   export const eventValidation = [
     body('nume', 'nume').isLength({min : 5}),
-    body('data', 'introdu data').isLength({min : 5}),
+    body('data1', 'introdu data').isLength({min : 5}),
+    body('data2', 'introdu data').isLength({min : 5}),
     body('person', 'person name').isLength({min : 3}),
     body('description', 'desc').isLength({min : 5}), //nu este necesar sa apara, dar daca apare verifica
   ]

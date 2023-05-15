@@ -4,8 +4,8 @@ export const create = async(req, res) => {
     try{
         const doc = new EventModel({
             eventName: req.body.title,
-            startDate: req.body.date,
-            endDate: req.body.date,
+            startDate: req.body.date1,
+            endDate: req.body.date2,
             eventDetails: req.body.details,
             eventPerson: req.body.person,
         });
