@@ -4,7 +4,8 @@ export const create = async(req, res) => {
     try{
         const doc = new EventModel({
             eventName: req.body.title,
-            eventDate: req.body.date,
+            startDate: req.body.startdate,
+            endDate: req.body.enddate,
             eventDetails: req.body.details,
             eventPerson: req.body.person,
         });
@@ -14,7 +15,7 @@ export const create = async(req, res) => {
         
     }catch(err){
         console.log(err)
-        res.status(500).json({
+        res.status(502).json({
             message: "Creare postare esuata",
         })
 

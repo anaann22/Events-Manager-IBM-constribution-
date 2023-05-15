@@ -7,12 +7,7 @@ import '../../Style/UserPage.css';
 import CustomSidebar from '../Organisms/CustomSidebar';
 
 const UserPage = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
+  
   return (
     <ProSidebarProvider>
       <div className="user-page-container" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>

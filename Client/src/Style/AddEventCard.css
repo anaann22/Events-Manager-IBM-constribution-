@@ -3,7 +3,7 @@
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     margin: 0px auto;
-    max-width: 800px;
+    max-width: 850px;
     overflow: hidden;
     justify-content: center;
   }
@@ -25,8 +25,8 @@
   .profile-add {
     border-radius: 0%;
     margin-right: 10px;
-    width: 250px;
-    padding-right: 20px;
+    width: 350px;
+    padding-right: 0px;
     padding-left: 20px;
     padding-top: 40px;
     padding-bottom: 40px;
