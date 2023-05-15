@@ -27,10 +27,11 @@ code {
     position: absolute;
     top: 67px;
     right: 20px;
-    /* background-color: #fff; */
+    background-color: #fff;
     border-radius: 20px;
     padding: 10px 20px;
     width: 200px;
+    z-index: 1000;
   }
   
   .dropdown-menu::before{
