@@ -1,11 +1,12 @@
 import express from 'express';
 import multer from 'multer';
 import { handleValidationErrors, checkAuth } from './utils/index.js';
-import { registerValidation, loginValidation, postCreateValidation } from './validations.js';
+import {registerValidation, loginValidation, postCreateValidation, eventValidation} from './validations.js';
 import mongoose from 'mongoose';
 import { PostController, UserController } from './controllers/index.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import {EventController} from './controllers/index.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -41,6 +42,8 @@ app.use(cors(corsOptions));
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login);
 app.post('/auth/register', registerValidation, handleValidationErrors, UserController.register);
 app.get('/auth/me', checkAuth, UserController.getMe);
+app.post('/event/create',eventValidation, EventController.create);
+app.get('/utilizatori', UserController.getAll);
 
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
   res.json({

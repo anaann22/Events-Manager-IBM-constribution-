@@ -1,23 +1,43 @@
 import '../../Style/Profile.css';
 import calendar from '../../Images/calendar.png';
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import '../../Style/AddEventCard.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const ProfileCard = () => {
-  const [eventName, setEventName] = useState("");
-  const [eventDate, setEventDate] = useState("");
-  const [eventDetails, setEventDetails] = useState("");
-  const [eventPerson, setEventPerson] = useState("");
+  const [title, setEventName] = useState("");
+  const [date, setEventDate] = useState("");
+  const [details, setEventDetails] = useState("");
+  const [person, setEventPerson] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleEventSubmit = (e) => {
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({
-      eventName,
-      eventDate,
-      eventDetails,
-      eventPerson,
-    });
+    setErrorMessage('');
+
+    try {
+        const response = await axios.post('http://localhost:4444/event/create', {
+            title,
+            date,
+            details,
+            person,
+        });
+
+        navigate('/calendar');
+        console.log("ceva");
+    } catch (error) {
+        console.error(error);
+        const backendErrorMessage = error.response?.data?.message;
+        setErrorMessage(backendErrorMessage || 'Eroare nu e adaugat event');
+    }
   };
+
+
 
   return (
     <div className="card">
@@ -27,26 +47,26 @@ const ProfileCard = () => {
       <div className="card-body">
         <img src={calendar} alt="Profile Picture" className="profile-add" />
         <div className="profile-det">
-          <form onSubmit={handleEventSubmit}>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="eventName">Name:</label>
               <input
                 type="text"
                 className="form-control input-field"
-                id="eventName"
+                id="titlu"
                 placeholder="Enter event name"
-                value={eventName}
+                value={title}
                 onChange={(e) => setEventName(e.target.value)}
               />
             </div>
             <div className="form-group">
               <label htmlFor="eventDate">Date:</label>
               <input
-                type="date"
+                type="Date"
                 className="form-control input-field"
-                id="eventDate"
+                id="date"
                 placeholder="Enter event date"
-                value={eventDate}
+                value={date}
                 onChange={(e) => setEventDate(e.target.value)}
               />
             </div>
@@ -54,10 +74,10 @@ const ProfileCard = () => {
               <label htmlFor="eventDetails">Event Details:</label>
               <textarea
                 className="form-control input-field"
-                id="eventDetails"
+                id="details"
                 rows="3"
                 placeholder="Enter event details"
-                value={eventDetails}
+                value={details}
                 onChange={(e) => setEventDetails(e.target.value)}
               />
             </div>
@@ -66,12 +86,12 @@ const ProfileCard = () => {
               <input
                 type="text"
                 className="form-control input-field"
-                id="eventPerson"
+                id="person"
                 placeholder="Add persons to the event"
-                value={eventPerson}
+                value={person}
                 onChange={(e) => setEventPerson(e.target.value)}
               />
-            </div>
+              </div>
             <button type="submit" className="btn btn-primary">
               Submit
             </button>
