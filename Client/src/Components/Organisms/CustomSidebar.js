@@ -11,7 +11,7 @@ const CustomSidebar = () => {
   const { collapseSidebar } = useProSidebar();
 
   return (
-    <Sidebar>
+    <Sidebar defaultCollapsed>
       <Menu>
         <MenuItem
           icon={<MenuOutlinedIcon />}
