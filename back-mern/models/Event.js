@@ -18,8 +18,14 @@ const EventSchema = new mongoose.Schema({
         required: true,
     },
     eventPerson: {
-        type: String,
+        // lista de email-uri
+        type: [String],
         required: true,
+    },
+    attendees: {
+        // lista de email-uri care au confirmat participarea
+        type: [String],
+        default: [],
     },
 }, { timestamps: true });
 

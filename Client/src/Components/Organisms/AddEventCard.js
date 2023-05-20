@@ -72,8 +72,10 @@ const ProfileCard = () => {
 
   const handleEmails = (emails) => {
     console.log(emails);
-    // email-urile selectate vor fi afișate în consolă
+    const emailsArray = emails.split('\n');  // transformă stringul într-o listă de email-uri
+    setEventPerson(emailsArray);  // setează lista de email-uri
 };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
