@@ -12,10 +12,7 @@ const MyCalendar = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        console.log('ok');
         const response = await axios.get('http://localhost:4444/event/getEvents');
-        console.log(123);
-        
         // Verifică dacă răspunsul este un array
         if (Array.isArray(response.data)) {
           // Convertește datele 'start' și 'end' în obiecte Date
@@ -40,7 +37,7 @@ const MyCalendar = () => {
   
 
   return (
-    <div style={{ height: '84.5vh' }}>
+    <div style={{ height: '82.6vh', paddingRight: '10px' }}> 
       <Calendar
         localizer={localizer}
         events={events}
@@ -50,7 +47,8 @@ const MyCalendar = () => {
         onSelectEvent={event => alert(event.title)}
       />
     </div>
-  );
+);
+
 };
 
 export default MyCalendar;

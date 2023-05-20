@@ -2,11 +2,8 @@ import React, { useState , useEffect} from 'react';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import Header from '../Organisms/Header';
 import Footer from '../Organisms/Footer';
-import back from '../../Images/wallp.png'
-import '../../Style/UserPage.css';
 import CustomSidebar from '../Organisms/CustomSidebar';
 import Card from '../Organisms/ProfileCard';
-import axios from 'axios';
 
 const MyProfile = () => {
 

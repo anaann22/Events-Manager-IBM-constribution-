@@ -3,7 +3,6 @@ import { ProSidebarProvider } from 'react-pro-sidebar';
 import Header from '../Organisms/Header';
 import Footer from '../Organisms/Footer';
 import back from '../../Images/wallp.png'
-import '../../Style/UserPage.css';
 import CustomSidebar from '../Organisms/CustomSidebar';
 
 const UserPage = () => {
