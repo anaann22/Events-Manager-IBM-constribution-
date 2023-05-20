@@ -4,13 +4,17 @@ import React, { useState, useEffect } from 'react';
 import '../../Style/AddEventCard.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
+
 
 const ProfileCard = () => {
   const [title, setEventName] = useState("");
@@ -20,12 +24,41 @@ const ProfileCard = () => {
   const [person, setEventPerson] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
   const [warningMessage, setWarningMessage] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const navigate = useNavigate();
 
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+
   const handleDialogClose = () => {
     setDialogOpen(false);
+  };
+
+  const handleDialogConfirm = async () => {
+    setDialogOpen(false);
+    try {
+      const response = await axios.post('http://localhost:4444/event/create', {
+        title,
+        startdate,
+        enddate,
+        details,
+        person,
+      });
+      navigate('/calendar');
+    } catch (error) {
+      console.error(error);
+      const backendErrorMessage = error.response?.data?.message;
+      setErrorMessage(backendErrorMessage || 'Eroare nu e adaugat event');
+      setSnackbarMessage(backendErrorMessage || 'Eroare nu e adaugat event');
+      setSnackbarOpen(true);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -35,24 +68,33 @@ const ProfileCard = () => {
 
     if (!title || !startdate || !enddate || !details || !person) {
       setErrorMessage('Toate câmpurile sunt obligatorii.');
+      setSnackbarMessage('Toate câmpurile sunt obligatorii.');
+      setSnackbarOpen(true);
       return;
     }
 
     const startDate = new Date(startdate);
     const endDate = new Date(enddate);
-  
+
     if (endDate < startDate) {
       setErrorMessage('Data de sfârșit nu poate fi înainte de data de început.');
+      setSnackbarMessage('Data de sfârșit nu poate fi înainte de data de început.');
+      setSnackbarOpen(true);
       return;
     }
-  
+
     if (endDate < new Date()) {
       setErrorMessage('Data de sfârșit nu poate fi în trecut.');
+      setSnackbarMessage('Data de sfârșit nu poate fi în trecut.');
+      setSnackbarOpen(true);
       return;
     }
-  
+
     if (startDate < new Date()) {
-      setWarningMessage('Evenimentul este programat pentru o dată din trecut.');
+      setWarningMessage('Data de inceput este in trecut.');
+      setSnackbarMessage('Data de inceput este in trecut.');
+      setSnackbarOpen(true);
+      setWarningMessage('Evenimentul este programat pentru o dată din trecut. Ești sigur că vrei să continui?');
       setDialogOpen(true);
       return;
     }
@@ -65,57 +107,49 @@ const ProfileCard = () => {
         details,
         person,
       });
-  
       navigate('/calendar');
-  
     } catch (error) {
       console.error(error);
       const backendErrorMessage = error.response?.data?.message;
       setErrorMessage(backendErrorMessage || 'Eroare nu e adaugat event');
+      setSnackbarMessage(backendErrorMessage || 'Eroare nu e adaugat event');
+      setSnackbarOpen(true);
     }
   };
-  
-  const handleConfirmSubmit = async () => {
-    handleDialogClose();
-
-    try {
-      const response = await axios.post('http://localhost:4444/event/create', {
-        title,
-        startdate,
-        enddate,
-        details,
-        person,
-      });
-  
-      navigate('/calendar');
-  
-    } catch (error) {
-      console.error(error);
-      const backendErrorMessage = error.response?.data?.message;
-      setErrorMessage(backendErrorMessage || 'Eroare nu e adaugat event');
-    }
-  }
 
   return (
     <div className="card">
       <div className="card-header">
         <h2 className="card-title">Add Event</h2>
       </div>
-      {errorMessage && <Alert variant="filled" severity="error">{errorMessage}</Alert>}
-      {warningMessage && <Alert variant="filled" severity="warning">{warningMessage}</Alert>}
+      <Snackbar open={snackbarOpen}
+        autoHideDuration={6000}
+        anchorOrigin= {{ vertical: 'top', horizontal: 'center' }}
+        onClose={handleSnackbarClose}>
+        <Alert variant="filled" onClose={handleSnackbarClose} severity={errorMessage ? "error" : "warning"} sx={{ width: '100%' }}>
+          {errorMessage || warningMessage}
+        </Alert>
+      </Snackbar>
+
       <Dialog
         open={dialogOpen}
         onClose={handleDialogClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
-        <DialogTitle>{"Ești sigur că vrei să continue?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Avertisment"}</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Evenimentul este programat pentru o dată din trecut. Ești sigur că vrei să adaugi acest eveniment?
+          <DialogContentText id="alert-dialog-description">
+            {warningMessage}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDialogClose}>Anulează</Button>
-          <Button onClick={handleConfirmSubmit} color="primary">Continuă</Button>
+          <Button onClick={handleDialogClose} color="primary">
+            Nu
+          </Button>
+          <Button onClick={handleDialogConfirm} color="primary" autoFocus>
+            Da
+          </Button>
         </DialogActions>
       </Dialog>
       <div className="card-body">
@@ -145,7 +179,7 @@ const ProfileCard = () => {
                 onChange={(e) => setEventstartDate(e.target.value)}
               />
             </div>
-            
+
 
             <div className="form-group">
               <label htmlFor="eventDate">End Date:</label>
