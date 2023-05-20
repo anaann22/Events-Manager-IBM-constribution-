@@ -4,7 +4,13 @@ import React, { useState, useEffect } from 'react';
 import '../../Style/AddEventCard.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import Alert from '@mui/material/Alert';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
 
 const ProfileCard = () => {
   const [title, setEventName] = useState("");
@@ -13,13 +19,43 @@ const ProfileCard = () => {
   const [details, setEventDetails] = useState("");
   const [person, setEventPerson] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
-
+  const [warningMessage, setWarningMessage] = useState('');
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const navigate = useNavigate();
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
+    setWarningMessage('');
+
+    if (!title || !startdate || !enddate || !details || !person) {
+      setErrorMessage('Toate câmpurile sunt obligatorii.');
+      return;
+    }
+
+    const startDate = new Date(startdate);
+    const endDate = new Date(enddate);
+  
+    if (endDate < startDate) {
+      setErrorMessage('Data de sfârșit nu poate fi înainte de data de început.');
+      return;
+    }
+  
+    if (endDate < new Date()) {
+      setErrorMessage('Data de sfârșit nu poate fi în trecut.');
+      return;
+    }
+  
+    if (startDate < new Date()) {
+      setWarningMessage('Evenimentul este programat pentru o dată din trecut.');
+      setDialogOpen(true);
+      return;
+    }
 
     try {
       const response = await axios.post('http://localhost:4444/event/create', {
@@ -29,23 +65,59 @@ const ProfileCard = () => {
         details,
         person,
       });
-
+  
       navigate('/calendar');
-      console.log("ceva");
+  
     } catch (error) {
       console.error(error);
       const backendErrorMessage = error.response?.data?.message;
       setErrorMessage(backendErrorMessage || 'Eroare nu e adaugat event');
     }
   };
+  
+  const handleConfirmSubmit = async () => {
+    handleDialogClose();
 
-
+    try {
+      const response = await axios.post('http://localhost:4444/event/create', {
+        title,
+        startdate,
+        enddate,
+        details,
+        person,
+      });
+  
+      navigate('/calendar');
+  
+    } catch (error) {
+      console.error(error);
+      const backendErrorMessage = error.response?.data?.message;
+      setErrorMessage(backendErrorMessage || 'Eroare nu e adaugat event');
+    }
+  }
 
   return (
     <div className="card">
       <div className="card-header">
         <h2 className="card-title">Add Event</h2>
       </div>
+      {errorMessage && <Alert variant="filled" severity="error">{errorMessage}</Alert>}
+      {warningMessage && <Alert variant="filled" severity="warning">{warningMessage}</Alert>}
+      <Dialog
+        open={dialogOpen}
+        onClose={handleDialogClose}
+      >
+        <DialogTitle>{"Ești sigur că vrei să continue?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Evenimentul este programat pentru o dată din trecut. Ești sigur că vrei să adaugi acest eveniment?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose}>Anulează</Button>
+          <Button onClick={handleConfirmSubmit} color="primary">Continuă</Button>
+        </DialogActions>
+      </Dialog>
       <div className="card-body">
         <img src={calendar} alt="Profile Picture" className="profile-add" />
         <div className="profile-det">
@@ -65,7 +137,7 @@ const ProfileCard = () => {
             <div className="form-group">
               <label htmlFor="eventDate">Start Date:</label>
               <input
-                type="Date"
+                type="datetime-local"
                 className="form-control input-field"
                 id="startdate"
                 placeholder="Enter event start date"
@@ -73,11 +145,12 @@ const ProfileCard = () => {
                 onChange={(e) => setEventstartDate(e.target.value)}
               />
             </div>
+            
 
             <div className="form-group">
               <label htmlFor="eventDate">End Date:</label>
               <input
-                type="Date"
+                type="datetime-local"
                 className="form-control input-field"
                 id="enddate"
                 placeholder="Enter event end date"
