@@ -20,8 +20,8 @@ export const create = async (req, res) => {
         const emailMessage = {
           to: req.body.person[i],
           from: 'anaburlacu020626@gmail.com',
-          subject: 'New Event Invitation',
-          text: `${req.body.title} - ${req.body.details}
+          subject: `${req.body.title}`,
+          text: `${req.body.details}
           Confirm your attendance by clicking the following link: 
           http://localhost:4444/event/confirm/${event._id}/${req.body.person[i]}`,
         };
