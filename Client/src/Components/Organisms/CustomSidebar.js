@@ -5,10 +5,16 @@ import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import HomeIcon from '@mui/icons-material/Home';
 import EditCalendar from "@mui/icons-material/EditCalendar";
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const CustomSidebar = () => {
   const { collapseSidebar } = useProSidebar();
+  const navigate = useNavigate();
+
+  const navigateTo = (route) => {
+    navigate(route);
+    collapseSidebar();
+  };
 
   return (
     <Sidebar defaultCollapsed>
@@ -21,20 +27,20 @@ const CustomSidebar = () => {
           style={{ textAlign: 'center' }}
         >
           {' '}
-          <h2>Navigate</h2>
+          <h2>Navigare</h2>
         </MenuItem>
 
-        <Link to="/user" style={{ color: '#000000' }}>
-          <MenuItem icon={<HomeIcon />}>Home</MenuItem>
-        </Link> 
+        <MenuItem icon={<HomeIcon />} onClick={() => navigateTo("/user")}>
+          Acasă
+        </MenuItem>
 
-        <Link to="/event-management" style={{ color: '#000000' }}>
-          <MenuItem icon={<EditCalendar />}>Event management</MenuItem>
-        </Link> 
+        <MenuItem icon={<EditCalendar />} onClick={() => navigateTo("/event-management")}>
+          Management evenimente
+        </MenuItem>
 
-        <Link to="/calendar" style={{ color: '#000000' }}>
-          <MenuItem icon={<CalendarTodayOutlinedIcon />}>Calendar</MenuItem>
-        </Link> 
+        <MenuItem icon={<CalendarTodayOutlinedIcon />} onClick={() => navigateTo("/calendar")}>
+          Calendar
+        </MenuItem>
       </Menu>
     </Sidebar>
   );

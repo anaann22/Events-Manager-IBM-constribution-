@@ -45,6 +45,8 @@ app.get('/auth/me', checkAuth, UserController.getMe);
 app.post('/event/create',eventValidation, EventController.create);
 app.get('/event/getEvents',EventController.getEvents);
 app.get('/utilizatori', UserController.getAll);
+app.get('/emails', UserController.getEmails);
+
 
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
   res.json({

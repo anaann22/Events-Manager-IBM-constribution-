@@ -14,6 +14,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
+import Persons from '../Molecules/Persons';
 
 
 const ProfileCard = () => {
@@ -27,7 +28,7 @@ const ProfileCard = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
-
+  const [personsDialogOpen, personsSetDialogOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleSnackbarClose = (event, reason) => {
@@ -39,6 +40,14 @@ const ProfileCard = () => {
 
   const handleDialogClose = () => {
     setDialogOpen(false);
+  };
+
+  const handlePersonsDialogClose = () => {
+    personsSetDialogOpen(false);
+  }
+
+  const handlePersonsOpenDialog = () => {
+    personsSetDialogOpen(true);
   };
 
   const handleDialogConfirm = async () => {
@@ -60,6 +69,11 @@ const ProfileCard = () => {
       setSnackbarOpen(true);
     }
   };
+
+  const handleEmails = (emails) => {
+    console.log(emails);
+    // email-urile selectate vor fi afișate în consolă
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -124,13 +138,13 @@ const ProfileCard = () => {
       </div>
       <Snackbar open={snackbarOpen}
         autoHideDuration={6000}
-        anchorOrigin= {{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         onClose={handleSnackbarClose}>
         <Alert variant="filled" onClose={handleSnackbarClose} severity={errorMessage ? "error" : "warning"} sx={{ width: '100%' }}>
           {errorMessage || warningMessage}
         </Alert>
       </Snackbar>
-
+      <Persons open={personsDialogOpen} handleClose={handlePersonsDialogClose} handleEmails={handleEmails} />
       <Dialog
         open={dialogOpen}
         onClose={handleDialogClose}
@@ -205,15 +219,7 @@ const ProfileCard = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="eventPerson">Persons:</label>
-              <input
-                type="text"
-                className="form-control input-field"
-                id="person"
-                placeholder="Add persons to the event"
-                value={person}
-                onChange={(e) => setEventPerson(e.target.value)}
-              />
+              <Button onClick={handlePersonsOpenDialog}>Selectează adrese de e-mail</Button>
             </div>
             <button type="submit" className="btn btn-primary">
               Submit

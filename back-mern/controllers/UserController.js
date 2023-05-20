@@ -54,6 +54,20 @@ export const register = async(req, res) => {
     }
 };
 
+export const getEmails = async (req, res) => {
+  try {
+      const users = await UserModel.find({}, 'email'); // selectează doar câmpul 'email'
+      const emails = users.map(user => user.email); // extrage adresele de e-mail
+      res.json(emails);
+  } catch (err) {
+      console.log(err);
+      res.status(500).json({
+          message: 'Error retrieving emails'
+      });
+  }
+};
+
+
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
