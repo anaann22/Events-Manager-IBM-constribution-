@@ -60,14 +60,18 @@ const Persons = ({ open, handleClose, handleEmails }) => {
     };
 
     const handleAddEmail = () => {
-        if (emailInput.trim() !== '' && !databaseEmails.includes(emailInput.trim())) {
+        if (emailInput.trim() !== '') {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+    
             if (emailRegex.test(emailInput.trim())) {
-                setDatabaseEmails([...databaseEmails, emailInput.trim()]);
-                setSelectedEmails([...selectedEmails, emailInput.trim()]);
-                setSuccessMessage('Adresa de e-mail a fost adăugată cu succes.');
-                setErrorMessage('');
+                if (!databaseEmails.includes(emailInput.trim())) {
+                    setDatabaseEmails([...databaseEmails, emailInput.trim()]);
+                    setSelectedEmails([...selectedEmails, emailInput.trim()]);
+                    setSuccessMessage('Adresa de e-mail a fost adăugată cu succes.');
+                    setErrorMessage('');
+                } else {
+                    setErrorMessage('Adresa de e-mail este deja în listă.');
+                }
                 setSnackbarOpen(true);
             } else {
                 setErrorMessage('Introduceți o adresă de e-mail validă.');
@@ -76,6 +80,7 @@ const Persons = ({ open, handleClose, handleEmails }) => {
             }
         }
     };
+    
 
     const handleRemoveEmail = () => {
         setSelectedEmails([]);
