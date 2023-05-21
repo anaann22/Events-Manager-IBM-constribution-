@@ -14,7 +14,6 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<IntroPage />} />
-        {/* <Route path="/login" element={<LoginPage />} />  */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/user" element={<UserPage />} />
@@ -22,6 +21,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/event-management" element={<EventM />} />
         <Route path="/editprofile" element={<EditProfilePage />} />
+        <Route path="/eventdetails" element={<Eve />} />
       </Routes>
     </Router>
   );

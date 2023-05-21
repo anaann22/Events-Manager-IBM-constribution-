@@ -5,8 +5,6 @@ import '../../Style/AddEventCard.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
