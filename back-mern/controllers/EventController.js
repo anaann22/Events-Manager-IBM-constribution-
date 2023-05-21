@@ -2,7 +2,7 @@ import EventModel from '../models/Event.js';
 import sgMail from '@sendgrid/mail';
 
 // SETEAZĂ AICI CHEIA TA DE LA SENDGRID
-sgMail.setApiKey(SENDGRID_API_KE);
+sgMail.setApiKey(process.env.SENDGRID_API_KE);
 
 export const create = async (req, res) => {
     try {
