@@ -7,6 +7,7 @@ import ProfilePage from './Components/Pages/MyProfile';
 import IntroPage from './Components/Pages/Intro';
 import EventM from './Components/Pages/EventM';
 import EditProfilePage from './Components/Pages/EditProfile';
+import GroupsAdd from './Components/Pages/GroupsAdd';
 import './Style/App.css';
 
 function App() {
@@ -14,7 +15,6 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<IntroPage />} />
-        {/* <Route path="/login" element={<LoginPage />} />  */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/user" element={<UserPage />} />
@@ -22,6 +22,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/event-management" element={<EventM />} />
         <Route path="/editprofile" element={<EditProfilePage />} />
+        <Route path="groups" element={<GroupsAdd/>} />
       </Routes>
     </Router>
   );

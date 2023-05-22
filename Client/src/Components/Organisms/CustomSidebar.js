@@ -41,6 +41,9 @@ const CustomSidebar = () => {
         <MenuItem icon={<CalendarTodayOutlinedIcon />} onClick={() => navigateTo("/calendar")}>
           Calendar
         </MenuItem>
+        <MenuItem icon={<EditCalendar />} onClick={() => navigateTo("/groups")}>
+          Calendar
+        </MenuItem>
       </Menu>
     </Sidebar>
   );
