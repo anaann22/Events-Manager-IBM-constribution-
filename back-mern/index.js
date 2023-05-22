@@ -2,7 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import { handleValidationErrors, checkAuth } from './utils/index.js';
 import {registerValidation, loginValidation, postCreateValidation, eventValidation} from './validations.js';
-import mongoose from 'mongoose';
+import mongoose, { get } from 'mongoose';
 import { PostController, UserController } from './controllers/index.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -73,6 +73,7 @@ app.post('/group/create',  GroupController.createGroup);
 app.get('/groups',  GroupController.getGroups);
 app.patch('/group/:id', GroupController.updateGroup);
 app.delete('/group/:id', GroupController.deleteGroup);
+app.get('/group/:id', GroupController.getGroupById);
 
 
 // Start server
