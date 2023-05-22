@@ -87,8 +87,8 @@ const Persons = ({ open, handleClose, handleEmails }) => {
     };
 
     const handleSelectAllEmails = () => {
-        setSelectedEmails(databaseEmails);
-    };
+        setSelectedEmails(filteredEmails);
+    };    
 
     const filteredEmails = databaseEmails.filter((email) => email.includes(emailFilter));
 

@@ -1,8 +1,10 @@
 import EventModel from '../models/Event.js';
 import sgMail from '@sendgrid/mail';
+import dotenv from 'dotenv';
 
+dotenv.config();
 // SETEAZĂ AICI CHEIA TA DE LA SENDGRID
-sgMail.setApiKey(process.env.SENDGRID_API_KE);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export const create = async (req, res) => {
     try {
@@ -19,7 +21,7 @@ export const create = async (req, res) => {
         for (let i = 0; i < req.body.person.length; i++) {
             const emailMessage = {
                 to: req.body.person[i],
-                from: 'adrianberindeieconstantin@gmail.com',
+                from: process.env.SENDER_EMAIL,
                 subject: `${req.body.title}`,
                 text: `${req.body.details}
           Confirm your attendance by clicking the following link: 
