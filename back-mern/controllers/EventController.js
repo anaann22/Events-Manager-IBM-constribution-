@@ -2,7 +2,7 @@ import EventModel from '../models/Event.js';
 import sgMail from '@sendgrid/mail';
 
 // SETEAZĂ AICI CHEIA TA DE LA SENDGRID
-sgMail.setApiKey('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');
+sgMail.setApiKey(process.env.SENDGRID_API_KE);
 
 export const create = async (req, res) => {
     try {
@@ -20,8 +20,8 @@ export const create = async (req, res) => {
             const emailMessage = {
                 to: req.body.person[i],
                 from: 'adrianberindeieconstantin@gmail.com',
-                subject: 'New Event Invitation',
-                text: `${req.body.title} - ${req.body.details}
+                subject: `${req.body.title}`,
+                text: `${req.body.details}
           Confirm your attendance by clicking the following link: 
           http://localhost:4444/event/confirm/${event._id}/${req.body.person[i]}`,
             };
