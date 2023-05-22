@@ -7,6 +7,7 @@ import { PostController, UserController } from './controllers/index.js';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import {EventController} from './controllers/index.js';
+import { GroupController } from './controllers/index.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -61,6 +62,18 @@ app.get('/posts', PostController.getAll);
 app.get('/posts/:id', PostController.getOne);
 app.delete('/posts/:id', checkAuth, PostController.remove);
 app.patch('/posts/:id', checkAuth, postCreateValidation, PostController.update);
+
+// Routes for groups
+// app.post('/group/create', checkAuth, GroupController.createGroup);
+// app.get('/groups', checkAuth, GroupController.getGroups);
+// app.patch('/group/:id', checkAuth, GroupController.updateGroup);
+// app.delete('/group/:id', checkAuth, GroupController.deleteGroup);
+
+app.post('/group/create',  GroupController.createGroup);
+app.get('/groups',  GroupController.getGroups);
+app.patch('/group/:id', GroupController.updateGroup);
+app.delete('/group/:id', GroupController.deleteGroup);
+
 
 // Start server
 const port = process.env.PORT || 4444;

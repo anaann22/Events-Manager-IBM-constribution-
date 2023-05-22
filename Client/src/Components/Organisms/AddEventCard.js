@@ -144,7 +144,10 @@ const ProfileCard = () => {
           {errorMessage || warningMessage}
         </Alert>
       </Snackbar>
-      <Persons open={personsDialogOpen} handleClose={handlePersonsDialogClose} handleEmails={handleEmails} />
+      <Persons open={personsDialogOpen} 
+      handleClose={handlePersonsDialogClose} 
+      handleEmails={handleEmails} 
+      showEmailInput={true} />
       <Dialog
         open={dialogOpen}
         onClose={handleDialogClose}

@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-const Persons = ({ open, handleClose, handleEmails }) => {
+const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
     const [selectedEmails, setSelectedEmails] = useState([]);
     const [emailInput, setEmailInput] = useState('');
     const [emailFilter, setEmailFilter] = useState('');
@@ -62,7 +62,7 @@ const Persons = ({ open, handleClose, handleEmails }) => {
     const handleAddEmail = () => {
         if (emailInput.trim() !== '') {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+
             if (emailRegex.test(emailInput.trim())) {
                 if (!databaseEmails.includes(emailInput.trim())) {
                     setDatabaseEmails([...databaseEmails, emailInput.trim()]);
@@ -80,14 +80,14 @@ const Persons = ({ open, handleClose, handleEmails }) => {
             }
         }
     };
-    
+
 
     const handleRemoveEmail = () => {
         setSelectedEmails([]);
     };
 
     const handleSelectAllEmails = () => {
-        setSelectedEmails(databaseEmails);
+        setSelectedEmails(filteredEmails);
     };
 
     const filteredEmails = databaseEmails.filter((email) => email.includes(emailFilter));
@@ -146,21 +146,26 @@ const Persons = ({ open, handleClose, handleEmails }) => {
                             disabled
                             style={{ marginTop: '10px' }}
                         />
-                        <Typography variant="subtitle1" style={{ marginTop: '20px' }}>
-                            Adaugă o nouă adresă de e-mail:
-                        </Typography>
-                        <TextField
-                            value={emailInput}
-                            onChange={handleEmailInputChange}
-                            variant="outlined"
-                            fullWidth
-                            autoComplete="off"
-                        />
+                        {showEmailInput && (
+                            <>
+                                <Typography variant="subtitle1" style={{ marginTop: '20px' }}>
+                                    Adaugă o nouă adresă de e-mail:
+                                </Typography>
+                                <TextField
+                                    value={emailInput}
+                                    onChange={handleEmailInputChange}
+                                    variant="outlined"
+                                    fullWidth
+                                    autoComplete="off"
+                                />
 
-                        <Button onClick={handleAddEmail} variant="contained" color="primary" style={{ marginTop: '10px' }}>
-                            Adaugă e-mail
-                        </Button>
+                                <Button onClick={handleAddEmail} variant="contained" color="primary" style={{ marginTop: '10px' }}>
+                                    Adaugă e-mail
+                                </Button>
+                            </>
+                        )}
                     </div>
+
                 </div>
             </DialogContent>
             <DialogActions>
