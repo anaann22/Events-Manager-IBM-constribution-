@@ -18,6 +18,7 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
     const [selectedEmails, setSelectedEmails] = useState([]);
     const [emailInput, setEmailInput] = useState('');
     const [emailFilter, setEmailFilter] = useState('');
+    const [groupFilter, setGroupFilter] = useState('');
     const [databaseEmails, setDatabaseEmails] = useState(['john.doe@example.com']);
     const [groupList, setGroupList] = useState([]);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -71,6 +72,10 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
         setEmailFilter(event.target.value);
     };
 
+    const handleGroupFilterChange = (event) => {
+        setGroupFilter(event.target.value);
+    };
+
     const handleAddEmail = () => {
         if (emailInput.trim() !== '') {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -97,7 +102,7 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
         const allGroupEmailsSelected =
             group.emails.length > 0 &&
             group.emails.every((email) => selectedEmails.includes(email));
-    
+
         if (allGroupEmailsSelected) {
             const newSelectedEmails = selectedEmails.filter((email) => !group.emails.includes(email));
             setSelectedEmails(newSelectedEmails);
@@ -117,6 +122,8 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
     };
 
     const filteredEmails = databaseEmails.filter((email) => email.includes(emailFilter));
+    const filteredGroups = groupList.filter((group) => group.groupName.toLowerCase().includes(groupFilter.toLowerCase()));
+
 
     const handleSendEmails = () => {
         handleEmails(selectedEmails.join('\n'));
@@ -193,7 +200,16 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
                         <Typography variant="subtitle1" style={{ marginTop: '20px' }}>
                             Selectează grupurile:
                         </Typography>
-                        {groupList.map((group) => (
+
+                        <TextField
+                            placeholder="Filtrează grupurile..."
+                            onChange={handleGroupFilterChange}
+                            variant="outlined"
+                            fullWidth
+                            style={{ marginBottom: '10px' }}
+                        />
+
+                        {filteredGroups.map((group) => (
                             <FormControlLabel
                                 key={group._id}
                                 control={
@@ -211,26 +227,34 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
                 </div>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose}>Anulează</Button>
-                <Button onClick={handleSelectAllEmails} color="primary">
+                <Button onClick={handleRemoveEmail} variant="outlined" color="secondary">
+                    Șterge toate adresele
+                </Button>
+                <Button onClick={handleSelectAllEmails} variant="outlined" color="primary">
                     Selectează toate adresele
                 </Button>
-                <Button onClick={handleRemoveEmail} color="secondary">
-                    Șterge toate
+                <Button onClick={handleClose} variant="outlined">
+                    Închide
                 </Button>
-                <Button onClick={handleSendEmails} color="primary">
-                    Salveaza e-mailurile
+                <Button onClick={handleSendEmails} variant="contained" color="primary">
+                    Trimite e-mail-uri
                 </Button>
             </DialogActions>
             <Snackbar
                 open={snackbarOpen}
                 autoHideDuration={6000}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                 onClose={handleSnackbarClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
             >
-                <Alert variant="filled" onClose={handleSnackbarClose} severity={successMessage ? 'success' : 'error'} sx={{ width: '100%' }}>
-                    {successMessage || errorMessage}
-                </Alert>
+                {errorMessage !== '' ? (
+                    <Alert onClose={handleSnackbarClose} severity="error">
+                        {errorMessage}
+                    </Alert>
+                ) : (
+                    <Alert onClose={handleSnackbarClose} severity="success">
+                        {successMessage}
+                    </Alert>
+                )}
             </Snackbar>
         </Dialog>
     );
