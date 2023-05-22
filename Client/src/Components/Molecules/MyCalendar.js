@@ -44,7 +44,7 @@ const MyCalendar = () => {
         startAccessor="start"
         endAccessor="end"
         style={{ height: '100%' }}
-        onSelectEvent={event => alert(event.title)}
+        onSelectEvent={event => alert(event.title, event.data)}
       />
     </div>
 );
