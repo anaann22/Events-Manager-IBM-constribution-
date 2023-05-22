@@ -5,6 +5,7 @@ import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import HomeIcon from '@mui/icons-material/Home';
 import EditCalendar from "@mui/icons-material/EditCalendar";
+import Groups from "@mui/icons-material/Group";
 import { useNavigate } from 'react-router-dom';
 
 const CustomSidebar = () => {
@@ -41,8 +42,8 @@ const CustomSidebar = () => {
         <MenuItem icon={<CalendarTodayOutlinedIcon />} onClick={() => navigateTo("/calendar")}>
           Calendar
         </MenuItem>
-        <MenuItem icon={<EditCalendar />} onClick={() => navigateTo("/groups")}>
-          Calendar
+        <MenuItem icon={<Groups />} onClick={() => navigateTo("/groups")}>
+          Groups
         </MenuItem>
       </Menu>
     </Sidebar>
