@@ -19,6 +19,7 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
     const [emailInput, setEmailInput] = useState('');
     const [emailFilter, setEmailFilter] = useState('');
     const [databaseEmails, setDatabaseEmails] = useState(['john.doe@example.com']);
+    const [groupList, setGroupList] = useState([]);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [warningMessage, setWarningMessage] = useState('');
@@ -35,7 +36,18 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
             }
         };
 
+        const fetchGroups = async () => {
+            try {
+                const response = await axios.get('http://localhost:4444/groups');
+                const groups = response.data;
+                setGroupList(groups);
+            } catch (error) {
+                console.error('Error fetching groups:', error);
+            }
+        };
+
         fetchEmails();
+        fetchGroups();
     }, []);
 
     const handleEmailToggle = (email) => {
@@ -81,6 +93,20 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
         }
     };
 
+    const handleGroupToggle = (group) => {
+        const allGroupEmailsSelected =
+            group.emails.length > 0 &&
+            group.emails.every((email) => selectedEmails.includes(email));
+    
+        if (allGroupEmailsSelected) {
+            const newSelectedEmails = selectedEmails.filter((email) => !group.emails.includes(email));
+            setSelectedEmails(newSelectedEmails);
+        } else {
+            const newSelectedEmails = [...selectedEmails, ...group.emails];
+            setSelectedEmails(newSelectedEmails);
+        }
+    };
+    
 
     const handleRemoveEmail = () => {
         setSelectedEmails([]);
@@ -164,8 +190,24 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
                                 </Button>
                             </>
                         )}
-                    </div>
+                        <Typography variant="subtitle1" style={{ marginTop: '20px' }}>
+                            Selectează grupurile:
+                        </Typography>
+                        {groupList.map((group) => (
+                            <FormControlLabel
+                                key={group._id}
+                                control={
+                                    <Checkbox
+                                        checked={group.emails.every((email) => selectedEmails.includes(email))}
+                                        onChange={() => handleGroupToggle(group)}
+                                    />
+                                }
+                                label={group.groupName}
+                            />
+                        ))}
 
+
+                    </div>
                 </div>
             </DialogContent>
             <DialogActions>
@@ -189,7 +231,6 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
                 <Alert variant="filled" onClose={handleSnackbarClose} severity={successMessage ? 'success' : 'error'} sx={{ width: '100%' }}>
                     {successMessage || errorMessage}
                 </Alert>
-
             </Snackbar>
         </Dialog>
     );
