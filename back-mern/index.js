@@ -75,7 +75,7 @@ app.patch('/group/:id', GroupController.updateGroup);
 app.delete('/group/:id', GroupController.deleteGroup);
 app.get('/group/:id', GroupController.getGroupById);
 
-router.get('/event/:eventId', getEventById);
+// router.get('/event/:eventId', getEventById);
 
 
 // Start server
