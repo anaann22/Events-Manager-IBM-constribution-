@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
+import moment from 'moment';
+import poza from '../../Images/corporate_pic.png'
 
 import {
     Dialog,
@@ -14,21 +16,53 @@ import axios from 'axios';
 
 const EventDet = ({ open, handleClose, event }) => {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
 
-    const handleSnackbarClose = () => {
-        setSnackbarOpen(false);
-    };
+    const { title, start, end, details } = event || {};
+
+    const formattedStart = start ? moment(start).format('DD/MM/YYYY h:mm a') : '';
+    const formattedEnd = end ? moment(end).format('DD/MM/YYYY h:mm a') : '';
+  
 
     return (
         <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-            <DialogTitle>Event details</DialogTitle>
+            <DialogTitle sx={{ textAlign: 'center', fontWeight: 'bold' }}>Event details</DialogTitle>
             <DialogContent>
-                <Typography variant="subtitle1">Name: {event && event.eventName}</Typography>
-                <Typography variant="subtitle1">Date: {event && event.stratDate}</Typography>
-                <Typography variant="subtitle1">Location: {event && event.endDate}</Typography>
-                {/* Add more details as needed */}
+            <div style={{ display: 'flex'}}>
+                <div
+                        style={{
+                            flex: '1',
+                            overflowY: 'auto',
+                            maxHeight: '500px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center'
+                        }}
+                    >
+                    <Typography variant="subtitle1">Event name: {title}</Typography>
+                    <Typography variant="subtitle1">Start date: {formattedStart}</Typography>
+                    <Typography variant="subtitle1">End date: {formattedEnd}</Typography>
+                    <Typography variant="subtitle1">Description: {details}</Typography>
+                    <Typography variant="subtitle1">Persons that are attending the event:</Typography>
+                    <div style={{
+                            height: '100px', 
+                            display: 'block',
+                            overflowY: 'auto',
+                            padding: '10px',
+                            border: '1px solid #ddd',
+                            borderRadius: '5px',
+                            backgroundColor: '#f9f9f9',
+                            marginTop: '10px'
+                        }}>
+                        {event && event.person && event.person.map((email, index) => (
+                            <Typography key={index} variant="subtitle1">{email}</Typography>
+                        ))}
+                     </div>
+                </div>
+                <div style={{ flex: '1', marginLeft: '20px' }}>
+                    <img src={poza} alt="poza" style={{width: '420px', height: '280px', borderRadius: '2em'}}/>
+                </div>
+            </div>
+                
             </DialogContent>
 
 
@@ -37,22 +71,6 @@ const EventDet = ({ open, handleClose, event }) => {
                     Close
                 </Button>
             </DialogActions>
-            <Snackbar
-                open={snackbarOpen}
-                autoHideDuration={6000}
-                onClose={handleSnackbarClose}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            >
-                {errorMessage !== '' ? (
-                    <Alert onClose={handleSnackbarClose} severity="error">
-                        {errorMessage}
-                    </Alert>
-                ) : (
-                    <Alert onClose={handleSnackbarClose} severity="success">
-                        {successMessage}
-                    </Alert>
-                )}
-            </Snackbar>
         </Dialog>
     );
 };

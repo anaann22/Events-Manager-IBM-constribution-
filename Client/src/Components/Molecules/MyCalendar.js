@@ -6,18 +6,6 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import axios from 'axios';
 import EventDet from '../Molecules/EventDet.js';
 
-import { Button } from '@mui/material';
-
-import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    Typography,
-    Snackbar,
-    Alert,
-} from '@mui/material';
-
 const localizer = momentLocalizer(moment);
 
 const MyCalendar = () => {
@@ -25,6 +13,14 @@ const MyCalendar = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [personsDialogOpen, setPersonsDialogOpen] = useState(false);
   const navigate = useNavigate();
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const handleSnackbarClose = () => {
+      setSnackbarOpen(false);
+  };
 
   const handlePersonsDialogClose = () => {
     setPersonsDialogOpen(false);
@@ -58,41 +54,6 @@ const MyCalendar = () => {
     setPersonsDialogOpen(true);
   };
 
-  const EventPopup = ({ event }) => {
-    return (
-      <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-      <DialogTitle>Event details</DialogTitle>
-      <DialogContent>
-          <Typography variant="subtitle1">Name: {eventName}</Typography>
-          <Typography variant="subtitle1">Date: {stratDate}</Typography>
-          <Typography variant="subtitle1">Location: {endDate}</Typography>
-          {/* Add more details as needed */}
-      </DialogContent>
-
-
-      <DialogActions>
-          <Button onClick={handleClose} variant="outlined">
-              Close
-          </Button>
-      </DialogActions>
-      <Snackbar
-          open={snackbarOpen}
-          autoHideDuration={6000}
-          onClose={handleSnackbarClose}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      >
-          {errorMessage !== '' ? (
-              <Alert onClose={handleSnackbarClose} severity="error">
-                  {errorMessage}
-              </Alert>
-          ) : (
-              <Alert onClose={handleSnackbarClose} severity="success">
-                  {successMessage}
-              </Alert>
-          )}
-      </Snackbar>
-  </Dialog>
-  )};
 
 
   return (
@@ -105,7 +66,18 @@ const MyCalendar = () => {
         style={{ height: '100%' }}
         onSelectEvent={handleSelectEvent}
       />
-      {selectedEvent && <EventPopup event={selectedEvent} />}   
+      {selectedEvent && (
+        <EventDet
+          event={selectedEvent}
+          open={personsDialogOpen}
+          handleClose={handlePersonsDialogClose}
+          snackbarOpen={snackbarOpen}
+          handleSnackbarClose={handleSnackbarClose}
+          errorMessage={errorMessage}
+          successMessage={successMessage}
+        />
+      )}
+  
 
     </div>
   );
