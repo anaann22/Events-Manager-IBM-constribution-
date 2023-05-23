@@ -75,6 +75,8 @@ app.patch('/group/:id', GroupController.updateGroup);
 app.delete('/group/:id', GroupController.deleteGroup);
 app.get('/group/:id', GroupController.getGroupById);
 
+router.get('/event/:eventId', getEventById);
+
 
 // Start server
 const port = process.env.PORT || 4444;

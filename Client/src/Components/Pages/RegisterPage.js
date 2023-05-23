@@ -25,13 +25,13 @@ function RegisterPage() {
         setErrorMessage('');
         if (!isPasswordValid) {
             setErrorMessage(
-                'Parola trebuie să conțină cel puțin 8 caractere, o literă mare, o literă mică și un număr.'
+                'The password must contain at least 8 characters, an uppercase letter, a lowercase letter and a number.'
             );
             return;
         }
     
         if (password !== confirmPassword) {
-            setErrorMessage('Parolele introduse nu se potrivesc.');
+            setErrorMessage('The passwords do not match.');
             return;
         }
     
@@ -47,7 +47,7 @@ function RegisterPage() {
         } catch (error) {
             console.error(error);
             const backendErrorMessage = error.response?.data?.message;
-            setErrorMessage(backendErrorMessage || 'A apărut o eroare la înregistrare. Încercați din nou.');
+            setErrorMessage(backendErrorMessage || 'An error occurred during registration. Try again.');
         }
     };
 

@@ -86,3 +86,23 @@ export const getEvents = async (req, res) => {
         res.status(500).json({ message: "Error getting events form database." });
     }
 };
+
+export const getEventById = async (req, res) => {
+    try {
+      const eventId = req.params.eventId; // Utilizează req.params.eventId pentru a obține ID-ul evenimentului din ruta API
+      const event = await EventModel.findById(eventId);
+  
+      if (!event) {
+        return res.status(404).json({
+          message: 'Event not found',
+        });
+      }
+  
+      res.json(event);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({
+        message: 'Internal Server Error',
+      });
+    }
+  };
