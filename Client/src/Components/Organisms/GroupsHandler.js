@@ -119,7 +119,7 @@ const GroupList = () => {
 
   const createGroup = async () => {
     if (groupName.trim() === '' || groupDescription.trim() === '' || groupEmails.length === 0) {
-      setErrorMessage('Toate câmpurile trebuie completate.');
+      setErrorMessage('All fields are required.');
       setSuccessMessage('');
       setSnackbarOpen(true);
       return;
@@ -137,12 +137,12 @@ const GroupList = () => {
       setGroupName('');
       setGroupDescription('');
       setGroupEmails([]);
-      setSuccessMessage('Grupul a fost creat cu succes.');
+      setSuccessMessage('The group has been created successfully.');
       setErrorMessage('');
       setSnackbarOpen(true);
     } catch (error) {
-      console.error('Error creating group:', error);
-      setErrorMessage('A apărut o eroare la crearea grupului.');
+      console.error('Error:', error);
+      setErrorMessage('error creating group.');
       setSuccessMessage('');
       setSnackbarOpen(true);
     }
@@ -153,13 +153,13 @@ const GroupList = () => {
     if (confirmDelete) {
       try {
         await axios.delete(`http://localhost:4444/group/${groupId}`);
-        setSuccessMessage('Grupul a fost șters cu succes.');
+        setSuccessMessage('The group has been deleted successfully.');
         setErrorMessage('');
         setSnackbarOpen(true);
         setGroups(groups.filter((group) => group._id !== groupId)); // Actualizați lista de grupuri
       } catch (error) {
-        console.error('Error deleting group:', error);
-        setErrorMessage('A apărut o eroare la ștergerea grupului.');
+        console.error('Error:', error);
+        setErrorMessage('error deleting group.');
         setSuccessMessage('');
         setSnackbarOpen(true);
       }

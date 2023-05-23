@@ -28,15 +28,15 @@ const CustomSidebar = () => {
           style={{ textAlign: 'center' }}
         >
           {' '}
-          <h2>Navigare</h2>
+          <h2>Navigation</h2>
         </MenuItem>
 
         <MenuItem icon={<HomeIcon />} onClick={() => navigateTo("/user")}>
-          Acasă
+          Home
         </MenuItem>
 
         <MenuItem icon={<EditCalendar />} onClick={() => navigateTo("/event-management")}>
-          Management evenimente
+          Event manager
         </MenuItem>
 
         <MenuItem icon={<CalendarTodayOutlinedIcon />} onClick={() => navigateTo("/calendar")}>

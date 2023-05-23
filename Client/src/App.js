@@ -6,7 +6,6 @@ import CalendarPage from './Components/Pages/CalendarPage';
 import ProfilePage from './Components/Pages/MyProfile';
 import IntroPage from './Components/Pages/Intro';
 import EventM from './Components/Pages/EventM';
-import EditProfilePage from './Components/Pages/EditProfile';
 import GroupsAdd from './Components/Pages/GroupsAdd';
 import './Style/App.css';
 
@@ -21,7 +20,7 @@ function App() {
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/event-management" element={<EventM />} />
-        <Route path="/editprofile" element={<EditProfilePage />} />
+        {/* <Route path="/editprofile" element={<EditProfilePage />} /> */}
         <Route path="groups" element={<GroupsAdd/>} />
       </Routes>
     </Router>

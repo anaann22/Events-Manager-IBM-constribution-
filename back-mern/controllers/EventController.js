@@ -42,7 +42,7 @@ export const create = async (req, res) => {
     } catch (err) {
         console.log(err)
         res.status(502).json({
-            message: "Creare postare esuata",
+            message: "Post creation failed",
         })
 
     }
@@ -83,6 +83,6 @@ export const getEvents = async (req, res) => {
         res.json(formattedEvents);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Eroare la obținerea evenimentelor din baza de date" });
+        res.status(500).json({ message: "Error getting events form database." });
     }
 };

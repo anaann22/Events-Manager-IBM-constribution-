@@ -62,8 +62,8 @@ const ProfileCard = () => {
     } catch (error) {
       console.error(error);
       const backendErrorMessage = error.response?.data?.message;
-      setErrorMessage(backendErrorMessage || 'Eroare nu e adaugat event');
-      setSnackbarMessage(backendErrorMessage || 'Eroare nu e adaugat event');
+      setErrorMessage(backendErrorMessage || 'Error: event not added');
+      setSnackbarMessage(backendErrorMessage || 'Error: event not added');
       setSnackbarOpen(true);
     }
   };
@@ -81,8 +81,8 @@ const ProfileCard = () => {
     setWarningMessage('');
 
     if (!title || !startdate || !enddate || !details || !person) {
-      setErrorMessage('Toate câmpurile sunt obligatorii.');
-      setSnackbarMessage('Toate câmpurile sunt obligatorii.');
+      setErrorMessage('All fields are required.');
+      setSnackbarMessage('All fields are required.');
       setSnackbarOpen(true);
       return;
     }
@@ -91,24 +91,24 @@ const ProfileCard = () => {
     const endDate = new Date(enddate);
 
     if (endDate < startDate) {
-      setErrorMessage('Data de sfârșit nu poate fi înainte de data de început.');
-      setSnackbarMessage('Data de sfârșit nu poate fi înainte de data de început.');
+      setErrorMessage('The end date cannot be before the start date.');
+      setSnackbarMessage('The end date cannot be before the start date.');
       setSnackbarOpen(true);
       return;
     }
 
     if (endDate < new Date()) {
-      setErrorMessage('Data de sfârșit nu poate fi în trecut.');
-      setSnackbarMessage('Data de sfârșit nu poate fi în trecut.');
+      setErrorMessage('The end date cannot be in the past.');
+      setSnackbarMessage('The end date cannot be in the past.');
       setSnackbarOpen(true);
       return;
     }
 
     if (startDate < new Date()) {
-      setWarningMessage('Data de inceput este in trecut.');
-      setSnackbarMessage('Data de inceput este in trecut.');
+      setWarningMessage('The start date is in the past.');
+      setSnackbarMessage('The start date is in the past.');
       setSnackbarOpen(true);
-      setWarningMessage('Evenimentul este programat pentru o dată din trecut. Ești sigur că vrei să continui?');
+      setWarningMessage('The event is scheduled for a date in the past. Do you want to continue?');
       setDialogOpen(true);
       return;
     }
@@ -125,8 +125,8 @@ const ProfileCard = () => {
     } catch (error) {
       console.error(error);
       const backendErrorMessage = error.response?.data?.message;
-      setErrorMessage(backendErrorMessage || 'Eroare nu e adaugat event');
-      setSnackbarMessage(backendErrorMessage || 'Eroare nu e adaugat event');
+      setErrorMessage(backendErrorMessage || 'Error: event not added');
+      setSnackbarMessage(backendErrorMessage || 'Error: event not added');
       setSnackbarOpen(true);
     }
   };
@@ -162,10 +162,10 @@ const ProfileCard = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose} color="primary">
-            Nu
+            No
           </Button>
           <Button onClick={handleDialogConfirm} color="primary" autoFocus>
-            Da
+            Yes
           </Button>
         </DialogActions>
       </Dialog>
@@ -222,7 +222,7 @@ const ProfileCard = () => {
               />
             </div>
             <div className="form-group">
-              <Button onClick={handlePersonsOpenDialog}>Selectează adrese de e-mail</Button>
+              <Button onClick={handlePersonsOpenDialog}>Select emails</Button>
             </div>
             <button type="submit" className="btn btn-primary">
               Submit

@@ -52,10 +52,10 @@ function UserDropDown() {
           <Link to="/profile"> 
                 <DropdownItem img = {userp} text = {"My profile"}/>
           </Link>
-          <Link to="/editprofile"> 
+          {/* <Link to="/editprofile"> 
             <DropdownItem img = {edit} text = {"Edit Profile"}/>
           </Link>
-            <DropdownItem img = {settings} text = {"Settings"}/>
+            <DropdownItem img = {settings} text = {"Settings"}/> */}
           <Link to="/"> 
                 <DropdownItem img = {logout} text = {"Logout"}/>
           </Link>

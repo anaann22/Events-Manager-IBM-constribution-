@@ -5,7 +5,7 @@ export const createGroup = async (req, res) => {
         const existingGroup = await GroupModel.findOne({ groupName: req.body.groupName });
 
         if (existingGroup) {
-            return res.status(400).json({ message: 'Există deja un grup cu același nume' });
+            return res.status(400).json({ message: 'There is already a group with the same name.' });
         }
 
         const group = new GroupModel({
@@ -19,7 +19,7 @@ export const createGroup = async (req, res) => {
 
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: 'Eroare la crearea grupului' });
+        res.status(500).json({ message: 'Error creating the group.' });
     }
 };
 
@@ -29,13 +29,13 @@ export const updateGroup = async (req, res) => {
         const group = await GroupModel.findById(req.params.id);
 
         if (!group) {
-            return res.status(404).json({ message: 'Grupul nu există' });
+            return res.status(404).json({ message: 'This group does not exists.' });
         }
 
         const existingGroupByName = await GroupModel.findOne({ groupName: req.body.groupName });
 
         if (existingGroupByName && existingGroupByName._id.toString() !== req.params.id) {
-            return res.status(401).json({ message: 'Există deja un grup cu același nume' });
+            return res.status(401).json({ message: 'There is already a group with the same name.' });
         }
 
         const existingGroupByEmail = await GroupModel.findOne({ emails: req.body.emails });
@@ -48,7 +48,7 @@ export const updateGroup = async (req, res) => {
 
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: 'Eroare la actualizarea grupului' });
+        res.status(500).json({ message: 'Error updating group' });
     }
 };
 
@@ -59,7 +59,7 @@ export const getGroups = async (req, res) => {
         res.json(groups);
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: "Eroare la obținerea grupurilor" });
+        res.status(500).json({ message: "Error getting groups" });
     }
 }
 

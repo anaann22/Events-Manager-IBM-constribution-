@@ -62,7 +62,7 @@ function RegisterPage() {
                 justifyContent="center"
             >
                 <Typography variant="h4" component="h1" gutterBottom>
-                    Înregistrare
+                    Register
                 </Typography>
                 <form onSubmit={handleSubmit}>
                     <TextField
@@ -111,12 +111,12 @@ function RegisterPage() {
                             borderRadius: '10px',
                         }}
                     >
-                        Înregistrează-te
+                        Register
                     </Button>
                 </form>
                 <Link to="/login" sx={{ textDecoration: 'none', mt: 2 }}>
                     <Typography variant="body2" align="center" marginTop="1rem">
-                        Ai deja un cont? Autentifică-te
+                        Do you have an account? Sign in
                     </Typography>
                 </Link>
             </Box>

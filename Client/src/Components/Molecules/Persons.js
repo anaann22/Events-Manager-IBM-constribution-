@@ -19,7 +19,7 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
     const [emailInput, setEmailInput] = useState('');
     const [emailFilter, setEmailFilter] = useState('');
     const [groupFilter, setGroupFilter] = useState('');
-    const [databaseEmails, setDatabaseEmails] = useState(['john.doe@example.com']);
+    const [databaseEmails, setDatabaseEmails] = useState(['']); // useState(['john.doe@example.com']);
     const [groupList, setGroupList] = useState([]);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -84,14 +84,14 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
                 if (!databaseEmails.includes(emailInput.trim())) {
                     setDatabaseEmails([...databaseEmails, emailInput.trim()]);
                     setSelectedEmails([...selectedEmails, emailInput.trim()]);
-                    setSuccessMessage('Adresa de e-mail a fost adăugată cu succes.');
+                    setSuccessMessage('The email address has been added successfully.');
                     setErrorMessage('');
                 } else {
-                    setErrorMessage('Adresa de e-mail este deja în listă.');
+                    setErrorMessage('The email address already exists in the list.');
                 }
                 setSnackbarOpen(true);
             } else {
-                setErrorMessage('Introduceți o adresă de e-mail validă.');
+                setErrorMessage('Please enter a valid email address.');
                 setSuccessMessage('');
                 setSnackbarOpen(true);
             }
@@ -136,7 +136,7 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
 
     return (
         <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-            <DialogTitle>Selectează adresele de e-mail</DialogTitle>
+            <DialogTitle>Select email addresses</DialogTitle>
             <DialogContent>
                 <div style={{ display: 'flex' }}>
                     <div
@@ -149,7 +149,7 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
                         }}
                     >
                         <TextField
-                            placeholder="Filtrează adresele de e-mail..."
+                            placeholder="Filter email addresses..."
                             onChange={handleEmailFilterChange}
                             variant="outlined"
                             fullWidth
@@ -169,7 +169,7 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
                         ))}
                     </div>
                     <div style={{ flex: '1', marginLeft: '20px' }}>
-                        <Typography variant="subtitle1">Adresele de e-mail selectate:</Typography>
+                        <Typography variant="subtitle1">Selected emails:</Typography>
                         <TextField
                             value={selectedEmails.join('\n')}
                             variant="outlined"
@@ -182,7 +182,7 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
                         {showEmailInput && (
                             <>
                                 <Typography variant="subtitle1" style={{ marginTop: '20px' }}>
-                                    Adaugă o nouă adresă de e-mail:
+                                    Add a new email address:
                                 </Typography>
                                 <TextField
                                     value={emailInput}
@@ -193,12 +193,12 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
                                 />
 
                                 <Button onClick={handleAddEmail} variant="contained" color="primary" style={{ marginTop: '10px' }}>
-                                    Adaugă e-mail
+                                    Add email
                                 </Button>
                             </>
                         )}
                         <Typography variant="subtitle1" style={{ marginTop: '20px' }}>
-                            Selectează grupurile:
+                            Select groups:
                         </Typography>
 
                         <TextField
@@ -228,16 +228,16 @@ const Persons = ({ open, handleClose, handleEmails, showEmailInput }) => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleRemoveEmail} variant="outlined" color="secondary">
-                    Șterge toate adresele
+                    Delete all emails
                 </Button>
                 <Button onClick={handleSelectAllEmails} variant="outlined" color="primary">
-                    Selectează toate adresele
+                    Select all emails
                 </Button>
                 <Button onClick={handleClose} variant="outlined">
-                    Închide
+                    Close
                 </Button>
                 <Button onClick={handleSendEmails} variant="contained" color="primary">
-                    Trimite e-mail-uri
+                    Save emails
                 </Button>
             </DialogActions>
             <Snackbar

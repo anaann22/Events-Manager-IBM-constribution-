@@ -93,7 +93,7 @@ const LoginPage = () => {
 
             <Link to="/register" sx={{ textDecoration: 'none', mt: 2 }}>
               <Typography className="link" variant="body2" align="center" marginTop="1rem">
-                Nu ai un cont? Înregistrează-te
+                Don't you have an account? Sign up
               </Typography>
             </Link>
           </form>

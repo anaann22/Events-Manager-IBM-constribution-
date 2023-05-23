@@ -24,7 +24,7 @@ const MyCalendar = () => {
   
           setEvents(events);
         } else {
-          console.error('Răspunsul nu este un array');
+          console.error('The answear is not an array.');
         }
   
       } catch (error) {
