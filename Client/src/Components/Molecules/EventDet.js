@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
 import moment from 'moment';
 import poza from '../../Images/corporate_pic.png'
-
 import {
     Dialog,
     DialogTitle,
