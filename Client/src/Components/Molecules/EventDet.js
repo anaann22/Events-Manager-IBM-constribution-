@@ -10,7 +10,6 @@ import {
     Snackbar,
     Alert,
 } from '@mui/material';
-import axios from 'axios';
 
 const EventDet = ({ open, handleClose, event }) => {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -25,9 +24,10 @@ const EventDet = ({ open, handleClose, event }) => {
         <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
             <DialogTitle>Event details</DialogTitle>
             <DialogContent>
-                <Typography variant="subtitle1">Name: {event && event.eventName}</Typography>
-                <Typography variant="subtitle1">Date: {event && event.stratDate}</Typography>
-                <Typography variant="subtitle1">Location: {event && event.endDate}</Typography>
+                <Typography variant="subtitle1">Name: {event && event.title}</Typography>
+                <Typography variant="subtitle1">Start Date: {event && event.startDate}</Typography>
+                <Typography variant="subtitle1">End Date: {event && event.endDate}</Typography>
+
                 {/* Add more details as needed */}
             </DialogContent>
 
