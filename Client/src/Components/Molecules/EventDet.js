@@ -12,7 +12,6 @@ import {
     Snackbar,
     Alert,
 } from '@mui/material';
-import axios from 'axios';
 
 const EventDet = ({ open, handleClose, event }) => {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
