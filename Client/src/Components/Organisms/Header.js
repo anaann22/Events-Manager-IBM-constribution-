@@ -18,16 +18,16 @@ const Header = () => {
   return (
     <div className="container">
       <Link to="/user">
-        <img
-          className="logo"
-          alt=""
-          src={logo}
-          style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
-            objectFit: 'contain',
-          }}
-        />
+      <img
+        className="logo"
+        alt=""
+        src={logo}
+        style={{
+          maxWidth: '100%',
+          maxHeight: '100%',
+          objectFit: 'contain',
+        }}
+      />
       </Link>
       <h2 className="title">
         {user ? `Welcome ${user.fullName}!` : "Welcome to your company events!"}

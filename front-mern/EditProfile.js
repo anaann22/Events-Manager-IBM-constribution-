@@ -1,11 +1,11 @@
 import React, { useState , useEffect} from 'react';
 import { ProSidebarProvider } from 'react-pro-sidebar';
-import Header from '../Organisms/Header';
-import Footer from '../Organisms/Footer';
-import CustomSidebar from '../Organisms/CustomSidebar';
-import Card from '../Organisms/ProfileCard';
+import Header from '../Client/src/Components/Organisms/Header';
+import Footer from '../Client/src/Components/Organisms/Footer';
+import CustomSidebar from '../Client/src/Components/Organisms/CustomSidebar';
+import Card from '../Organisms/EditProfileCard';
 
-const MyProfile = () => {
+const EditProfile = () => {
 
   return (
     <ProSidebarProvider>
@@ -23,4 +23,4 @@ const MyProfile = () => {
   );
 };
 
-export default MyProfile;
+export default EditProfile;

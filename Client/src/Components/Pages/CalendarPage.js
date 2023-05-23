@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import Header from '../Organisms/Header';
 import Footer from '../Organisms/Footer';
-import '../../Style/UserPage.css';
 import CustomSidebar from '../Organisms/CustomSidebar';
 import MyCalendar from '../Molecules/MyCalendar';
 

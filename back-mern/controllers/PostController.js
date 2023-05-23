@@ -8,7 +8,7 @@ export const getAll = async(req, res) => {
     }catch(err){
         console.log(err)
         res.status(500).json({
-            message: "Nu s-au gasit postari",
+            message: "No posts found.",
         })
 
     }
@@ -32,7 +32,7 @@ export const getOne = async (req, res) => {
   
       if (!doc) {
         return res.status(404).json({
-          message: 'Nu a fost gasita postarea',
+          message: 'Post not found',
         });
       }
   
@@ -40,7 +40,7 @@ export const getOne = async (req, res) => {
     } catch (err) {
       console.log(err);
       res.status(500).json({
-        message: 'Eroare',
+        message: 'Error',
       });
     }
   };
@@ -53,7 +53,7 @@ export const getOne = async (req, res) => {
   
       if (!doc) {
         return res.status(404).json({
-          message: 'Nu a fost gasit',
+          message: 'Not found',
         });
       }
   
@@ -63,7 +63,7 @@ export const getOne = async (req, res) => {
     } catch (err) {
       console.log(err);
       res.status(500).json({
-        message: 'Eroare',
+        message: 'Error',
       });
     }
   };
@@ -91,7 +91,7 @@ export const getOne = async (req, res) => {
     } catch (err) {
       console.log(err);
       res.status(500).json({
-        message: 'Eroare',
+        message: 'Error',
       });
     }
   };
@@ -113,7 +113,7 @@ export const create = async(req, res) => {
     }catch(err){
         console.log(err)
         res.status(500).json({
-            message: "Creare postare esuata",
+            message: "Post creation failed",
         })
 
     }

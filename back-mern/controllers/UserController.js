@@ -54,18 +54,32 @@ export const register = async(req, res) => {
     }
 };
 
+export const getEmails = async (req, res) => {
+  try {
+      const users = await UserModel.find({}, 'email'); // selectează doar câmpul 'email'
+      const emails = users.map(user => user.email); // extrage adresele de e-mail
+      res.json(emails);
+  } catch (err) {
+      console.log(err);
+      res.status(500).json({
+          message: 'Error retrieving emails'
+      });
+  }
+};
+
+
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
   // Afiseaza emailul si parola in consola
-  console.log(`Email: ${email}, Parola: ${password}`);
+  console.log(`Email: ${email}, Password: ${password}`);
 
   try {
     // Verifica dacă utilizatorul există în baza de date
     const user = await UserModel.findOne({ email });
     if (!user) {
       return res.status(404).json({
-        message: 'Utilizator necunoscut.',
+        message: 'Unknown user.',
       });
     }
 
@@ -73,7 +87,7 @@ export const login = async (req, res) => {
     const isValidPass = await bcrypt.compare(password, user.passwordHash);
 if (!isValidPass) {
   return res.status(401).json({
-    message: 'Parolă invalidă.',
+    message: 'Invalid password.',
   });
 }
 
@@ -96,7 +110,7 @@ if (!isValidPass) {
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      message: 'Eroare la conectare.',
+      message: 'Connection error.',
     });
   }
 };

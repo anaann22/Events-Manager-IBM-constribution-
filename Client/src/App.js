@@ -6,7 +6,8 @@ import CalendarPage from './Components/Pages/CalendarPage';
 import ProfilePage from './Components/Pages/MyProfile';
 import IntroPage from './Components/Pages/Intro';
 import EventM from './Components/Pages/EventM';
-import SeeEvents from './Components/Pages/SeeEvents';
+import GroupsAdd from './Components/Pages/GroupsAdd';
+import EventDetails from './Components/Pages/EventDetails';
 import './Style/App.css';
 
 function App() {
@@ -20,7 +21,9 @@ function App() {
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/event-management" element={<EventM />} />
-        <Route path="/see-events" element={<SeeEvents />} />
+        {/* <Route path="/editprofile" element={<EditProfilePage />} /> */}
+        <Route path="groups" element={<GroupsAdd/>} />
+        <Route path="/event" element={<EventDetails/>} />
       </Routes>
     </Router>
   );

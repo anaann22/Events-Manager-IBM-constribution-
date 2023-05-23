@@ -4,6 +4,15 @@ import React, { useState, useEffect } from 'react';
 import '../../Style/AddEventCard.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Snackbar from '@mui/material/Snackbar';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
+import Persons from '../Molecules/Persons';
 
 
 const ProfileCard = () => {
@@ -13,13 +22,96 @@ const ProfileCard = () => {
   const [details, setEventDetails] = useState("");
   const [person, setEventPerson] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
-
-
+  const [warningMessage, setWarningMessage] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [personsDialogOpen, personsSetDialogOpen] = useState(false);
   const navigate = useNavigate();
+
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const handlePersonsDialogClose = () => {
+    personsSetDialogOpen(false);
+  }
+
+  const handlePersonsOpenDialog = () => {
+    personsSetDialogOpen(true);
+  };
+
+  const handleDialogConfirm = async () => {
+    setDialogOpen(false);
+    try {
+      const response = await axios.post('http://localhost:4444/event/create', {
+        title,
+        startdate,
+        enddate,
+        details,
+        person,
+      });
+      navigate('/calendar');
+    } catch (error) {
+      console.error(error);
+      const backendErrorMessage = error.response?.data?.message;
+      setErrorMessage(backendErrorMessage || 'Error: event not added');
+      setSnackbarMessage(backendErrorMessage || 'Error: event not added');
+      setSnackbarOpen(true);
+    }
+  };
+
+  const handleEmails = (emails) => {
+    console.log(emails);
+    const emailsArray = emails.split('\n');  // transformă stringul într-o listă de email-uri
+    setEventPerson(emailsArray);  // setează lista de email-uri
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage('');
+    setWarningMessage('');
+
+    if (!title || !startdate || !enddate || !details || !person) {
+      setErrorMessage('All fields are required.');
+      setSnackbarMessage('All fields are required.');
+      setSnackbarOpen(true);
+      return;
+    }
+
+    const startDate = new Date(startdate);
+    const endDate = new Date(enddate);
+
+    if (endDate < startDate) {
+      setErrorMessage('The end date cannot be before the start date.');
+      setSnackbarMessage('The end date cannot be before the start date.');
+      setSnackbarOpen(true);
+      return;
+    }
+
+    if (endDate < new Date()) {
+      setErrorMessage('The end date cannot be in the past.');
+      setSnackbarMessage('The end date cannot be in the past.');
+      setSnackbarOpen(true);
+      return;
+    }
+
+    if (startDate < new Date()) {
+      setWarningMessage('The start date is in the past.');
+      setSnackbarMessage('The start date is in the past.');
+      setSnackbarOpen(true);
+      setWarningMessage('The event is scheduled for a date in the past. Do you want to continue?');
+      setDialogOpen(true);
+      return;
+    }
 
     try {
       const response = await axios.post('http://localhost:4444/event/create', {
@@ -29,23 +121,54 @@ const ProfileCard = () => {
         details,
         person,
       });
-
       navigate('/calendar');
-      console.log("ceva");
     } catch (error) {
       console.error(error);
       const backendErrorMessage = error.response?.data?.message;
-      setErrorMessage(backendErrorMessage || 'Eroare nu e adaugat event');
+      setErrorMessage(backendErrorMessage || 'Error: event not added');
+      setSnackbarMessage(backendErrorMessage || 'Error: event not added');
+      setSnackbarOpen(true);
     }
   };
-
-
 
   return (
     <div className="card">
       <div className="card-header">
         <h2 className="card-title">Add Event</h2>
       </div>
+      <Snackbar open={snackbarOpen}
+        autoHideDuration={6000}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        onClose={handleSnackbarClose}>
+        <Alert variant="filled" onClose={handleSnackbarClose} severity={errorMessage ? "error" : "warning"} sx={{ width: '100%' }}>
+          {errorMessage || warningMessage}
+        </Alert>
+      </Snackbar>
+      <Persons open={personsDialogOpen} 
+      handleClose={handlePersonsDialogClose} 
+      handleEmails={handleEmails} 
+      showEmailInput={true} />
+      <Dialog
+        open={dialogOpen}
+        onClose={handleDialogClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Avertisment"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {warningMessage}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary">
+            No
+          </Button>
+          <Button onClick={handleDialogConfirm} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
       <div className="card-body">
         <img src={calendar} alt="Profile Picture" className="profile-add" />
         <div className="profile-det">
@@ -65,7 +188,7 @@ const ProfileCard = () => {
             <div className="form-group">
               <label htmlFor="eventDate">Start Date:</label>
               <input
-                type="Date"
+                type="datetime-local"
                 className="form-control input-field"
                 id="startdate"
                 placeholder="Enter event start date"
@@ -74,10 +197,11 @@ const ProfileCard = () => {
               />
             </div>
 
+
             <div className="form-group">
               <label htmlFor="eventDate">End Date:</label>
               <input
-                type="Date"
+                type="datetime-local"
                 className="form-control input-field"
                 id="enddate"
                 placeholder="Enter event end date"
@@ -98,15 +222,7 @@ const ProfileCard = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="eventPerson">Persons:</label>
-              <input
-                type="text"
-                className="form-control input-field"
-                id="person"
-                placeholder="Add persons to the event"
-                value={person}
-                onChange={(e) => setEventPerson(e.target.value)}
-              />
+              <Button onClick={handlePersonsOpenDialog}>Select emails</Button>
             </div>
             <button type="submit" className="btn btn-primary">
               Submit
