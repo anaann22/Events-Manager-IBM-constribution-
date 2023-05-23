@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import axios from 'axios';
 import EventDet from '../Molecules/EventDet.js';
-import { useNavigate } from 'react-router-dom';
 
 const localizer = momentLocalizer(moment);
 
