@@ -1,0 +1,83 @@
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    margin: 0px auto;
+    max-width: 850px;
+    overflow: hidden;
+    justify-content: center;
+  }
+  
+  .card-header {
+    background-color: #f2f2f2;
+    padding: 15px;
+  }
+  
+  .card-title {
+    margin: 0;
+  }
+  
+  .card-body {
+    display: flex;
+    padding: 30px;
+  }
+  
+  .profile-add {
+    border-radius: 0%;
+    margin-right: 10px;
+    width: 350px;
+    padding-right: 0px;
+    padding-left: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  
+  .profile-det {
+    display: flex;
+    flex-direction: column;
+    padding-left: 110px;
+  }
+  
+  .profile-details p {
+    margin: 0;
+    margin-bottom: 10px;
+  }
+  
+  .event-details-info {
+    margin-bottom: 10px;
+  }
+  
+  .event-details-container {
+    margin: 20px;
+  }
+  
+  .event-details-header {
+    background-color: #f2f2f2;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .event-details-title {
+    margin: 0;
+  }
+  
+  .event-details-body {
+    display: flex;
+  }
+  
+  .event-details-image {
+    border-radius: 0%;
+    margin-right: 10px;
+    width: 350px;
+    padding-right: 0px;
+    padding-left: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  
+  .event-details-details {
+    display: flex;
+    flex-direction: column;
+    padding-left: 110px;
+  }
+  
