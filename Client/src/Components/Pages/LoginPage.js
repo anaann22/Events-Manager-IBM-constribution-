@@ -64,9 +64,8 @@ const LoginPage = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <Typography variant="h4" component="h1" gutterBottom>
-            Login
-          </Typography>
+          <div className='textTitlu'>Login</div>
+
           <form onSubmit={handleSubmit}>
             <TextField
               required

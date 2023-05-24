@@ -61,15 +61,13 @@ function RegisterPage() {
                 alignItems="center"
                 justifyContent="center"
             >
-                <Typography variant="h4" component="h1" gutterBottom>
-                    Register
-                </Typography>
+                <div className='textTitlu'>Register</div>
                 <form onSubmit={handleSubmit}>
                     <TextField
                         required
                         fullWidth
                         margin="normal"
-                        label="Name"
+                        label="Full Name"
                         value={fullName}
                         onChange={(e) => setName(e.target.value)}
                     />
