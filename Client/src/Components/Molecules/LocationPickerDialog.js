@@ -25,7 +25,7 @@ const LocationPickerDialog = ({ open, onClose, onLocationSelected }) => {
             aria-describedby="alert-dialog-description"
         >
             <DialogContent>
-                <LoadScript googleMapsApiKey="AIzaSyCfrkr4WNetOhYP1TMnnc1KE1v23H5cODo">
+                <LoadScript googleMapsApiKey='process.env.LOCATION_API_KEY'>
                     <GoogleMap
                         mapContainerStyle={{ width: '400px', height: '400px' }}
                         center={{ lat: 45.7489, lng: 21.2087 }} // acesta este centrul pentru Timișoara
