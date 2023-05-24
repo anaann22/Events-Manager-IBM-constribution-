@@ -113,3 +113,33 @@ export const getEventById = async (req, res) => {
       });
     }
   };
+
+
+  export const deleteEvent = async (req, res) => {
+    try {
+        const eventId = req.params.id;
+        const event = await EventModel.findById(eventId);
+
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+
+        // Verifică dacă utilizatorul are permisiunile necesare pentru a șterge grupul
+        // Implementează condițiile specifice pentru verificarea permisiunilor
+        const userHasPermission = true; // Exemplu: Permisiuni verificate și setate în funcție de utilizator
+
+        if (!userHasPermission) {
+            return res.status(403).json({ message: 'Insufficient permissions' });
+        }
+
+        // Alte verificări și condiții specifice pentru ștergerea grupului
+        // Implementează condițiile specifice pentru cazurile suplimentare
+
+        await event.deleteOne();
+
+        return res.json({ message: 'Event deleted successfully' });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Error deleting event' });
+    }
+};

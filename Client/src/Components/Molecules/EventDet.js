@@ -12,14 +12,36 @@ import {
     Snackbar,
     Alert,
 } from '@mui/material';
+import axios from 'axios'
 
 const EventDet = ({ open, handleClose, event }) => {
+    const [events, setEvents] = useState([]);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const { title, start, end, details, location } = event || {};
 
     const formattedStart = start ? moment(start).format('DD/MM/YYYY h:mm a') : '';
     const formattedEnd = end ? moment(end).format('DD/MM/YYYY h:mm a') : '';
+
+    const handleDeleteEvent = async (eventId) => {
+        const confirmDelete = window.confirm('Are you sure you want to delete this event?');
+        if (confirmDelete) {
+          try {
+            await axios.delete(`http://localhost:4444/event/${eventId}`);
+            setSuccessMessage('The event has been deleted successfully.');
+            setErrorMessage('');
+            setSnackbarOpen(true);
+            setEvents(events.filter((event) => event._id !== eventId)); // Actualizați lista de events
+          } catch (error) {
+            console.error('Error:', error);
+            setErrorMessage('error deleting event.');
+            setSuccessMessage('');
+            setSnackbarOpen(true);
+          }
+        }
+      };
   
 
     return (
@@ -74,6 +96,9 @@ const EventDet = ({ open, handleClose, event }) => {
             <DialogActions>
                 <Button onClick={handleClose} variant="outlined">
                     Close
+                </Button>
+                <Button variant="outlined" color="secondary" onClick={() => handleDeleteEvent(event._id)}>
+                    Delete
                 </Button>
             </DialogActions>
         </Dialog>
