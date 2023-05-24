@@ -17,6 +17,7 @@ export const register = async(req, res) => {
 
         const password = req.body.password;
         const fullName = req.body.fullName;
+        const isAdmin = req.body.isAdmin;
         console.log({email,password,fullName});
 
         const salt = await bcrypt.genSalt(10);
@@ -95,6 +96,7 @@ if (!isValidPass) {
     const token = jwt.sign(
       {
         _id: user._id,
+        isAdmin: user.isAdmin,
       },
       "secret",
       {

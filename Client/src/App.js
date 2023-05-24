@@ -9,6 +9,7 @@ import EventM from './Components/Pages/EventM';
 import GroupsAdd from './Components/Pages/GroupsAdd';
 import EventDetails from './Components/Pages/EventDetails';
 import './Style/App.css';
+import ProtectedRoute from './ProtectedRoute'; // importați ProtectedRoute
 
 function App() {
   return (
@@ -20,10 +21,15 @@ function App() {
         <Route path="/user" element={<UserPage />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/event-management" element={<EventM />} />
+        <Route path="/event-management" element={
+          <ProtectedRoute isAdmin={localStorage.getItem('isAdmin') === "true"}>
+            <EventM />
+          </ProtectedRoute>
+        } />
+
         {/* <Route path="/editprofile" element={<EditProfilePage />} /> */}
-        <Route path="groups" element={<GroupsAdd/>} />
-        <Route path="/event" element={<EventDetails/>} />
+        <Route path="groups" element={<GroupsAdd />} />
+        <Route path="/event" element={<EventDetails />} />
       </Routes>
     </Router>
   );
