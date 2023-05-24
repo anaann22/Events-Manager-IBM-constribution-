@@ -27,6 +27,11 @@ const EventSchema = new mongoose.Schema({
         type: [String],
         default: [],
     },
+    eventLocation: {
+        // link-ul locației evenimentului
+        type: String,
+        required: false,
+    },
 }, { timestamps: true });
 
 export default mongoose.model('Event', EventSchema);

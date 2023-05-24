@@ -14,6 +14,7 @@ export const create = async (req, res) => {
             endDate: req.body.enddate,
             eventDetails: req.body.details,
             eventPerson: req.body.person,
+            eventLocation: req.body.location, // Adaugă câmpul pentru locație
         });
 
         const event = await doc.save();
@@ -26,6 +27,9 @@ export const create = async (req, res) => {
                 text: `${req.body.details}
           Confirm your attendance by clicking the following link: 
           http://localhost:4444/event/confirm/${event._id}/${req.body.person[i]}`,
+                html: `<p>${req.body.details}</p>
+          <p>Confirm your attendance by clicking the following link:</p>
+          <a href="http://localhost:4444/event/confirm/${event._id}/${req.body.person[i]}">Confirm attendance</a>`,
             };
             console.log(`Sending email to ${req.body.person[i]}`);
             try {
@@ -47,6 +51,7 @@ export const create = async (req, res) => {
 
     }
 }
+
 
 export const confirmAttendance = async (req, res) => {
     try {
