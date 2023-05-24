@@ -27,15 +27,20 @@ const LoginPage = () => {
       });
 
       if (response && response.data) {
-        const { token, ...user } = response.data;
+        const { token, isAdmin, ...user } = response.data;
+      
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
-
+        localStorage.setItem("isAdmin", isAdmin); // Salvarea informației isAdmin în localStorage
+      
         setSuccessMessage("Login successful");
         setSnackbarOpen(true);
-
-        navigate('/user');
-      } else {
+      
+        setTimeout(() => {
+          navigate('/user');
+        }, 2000); // Navigare după 2 secunde
+      }
+       else {
         setErrorMessage("Response or response data is undefined");
         setSnackbarOpen(true);
       }
