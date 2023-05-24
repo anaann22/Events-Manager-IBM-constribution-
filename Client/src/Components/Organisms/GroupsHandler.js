@@ -80,8 +80,16 @@ const GroupList = () => {
   }, [groups]); // Adăugați groups ca dependență
 
   const handleEditGroup = (groupId) => {
-    setEditGroupId(groupId);
-    setEditDialogOpen(true);
+    if(!isAdminUser)
+      {
+        setErrorMessage('You are not an admin user.');
+        setSuccessMessage('');
+        setSnackbarOpen(true);
+        return;
+      }else{
+        setEditGroupId(groupId);
+        setEditDialogOpen(true);
+      }
   };
 
   const handleCloseEditDialog = () => {
@@ -102,7 +110,15 @@ const GroupList = () => {
   };
 
   const handleOpenPersonsDialog = () => {
-    setPersonsDialogOpen(true);
+    if(!isAdminUser)
+    {
+      setErrorMessage('You are not an admin user.');
+      setSuccessMessage('');
+      setSnackbarOpen(true);
+      return;
+    }else{
+      setPersonsDialogOpen(true);
+    }
   };
 
   const handleClosePersonsDialog = () => {
@@ -157,21 +173,29 @@ const GroupList = () => {
   };
 
   const handleDeleteGroup = async (groupId) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this group?');
-    if (confirmDelete) {
-      try {
-        await axios.delete(`http://localhost:4444/group/${groupId}`);
-        setSuccessMessage('The group has been deleted successfully.');
-        setErrorMessage('');
-        setSnackbarOpen(true);
-        setGroups(groups.filter((group) => group._id !== groupId)); // Actualizați lista de grupuri
-      } catch (error) {
-        console.error('Error:', error);
-        setErrorMessage('error deleting group.');
+      if(!isAdminUser)
+      {
+        setErrorMessage('You are not an admin user.');
         setSuccessMessage('');
         setSnackbarOpen(true);
+        return;
+      }else{
+        const confirmDelete = window.confirm('Are you sure you want to delete this group?');
+        if (confirmDelete) {
+          try {
+            await axios.delete(`http://localhost:4444/group/${groupId}`);
+            setSuccessMessage('The group has been deleted successfully.');
+            setErrorMessage('');
+            setSnackbarOpen(true);
+            setGroups(groups.filter((group) => group._id !== groupId)); // Actualizați lista de grupuri
+          } catch (error) {
+            console.error('Error:', error);
+            setErrorMessage('error deleting group.');
+            setSuccessMessage('');
+            setSnackbarOpen(true);
+          }
+        }
       }
-    }
   };
 
   const filteredGroups = groups.filter((group) => {
