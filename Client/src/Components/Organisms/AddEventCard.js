@@ -253,11 +253,9 @@ const ProfileCard = () => {
             <div className="form-group">
               <Button onClick={handlePersonsOpenDialog}>Select emails</Button>
             </div>
-            <Button
-              onClick={handleLocationDialogOpen}
-            >
-              Select Location
-            </Button>
+            <div className="form-group">
+            <Button onClick={handleLocationDialogOpen}>Select Location</Button>
+            </div>
             <button type="submit" className="btn btn-primary">
               Submit
             </button>
