@@ -46,7 +46,8 @@ const EventDet = ({ open, handleClose, event }) => {
                         <Link href={location} target="_blank" rel="noopener noreferrer">
                             Location
                         </Link>
-                    </Typography>                    <Typography variant="subtitle1">Persons that are attending the event:</Typography>
+                    </Typography>                    
+                    <Typography variant="subtitle1">Persons that are attending the event:</Typography>
                     <div style={{
                             height: '100px', 
                             display: 'block',
