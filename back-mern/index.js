@@ -47,7 +47,7 @@ app.post('/event/create',eventValidation, EventController.create);
 app.get('/event/getEvents',EventController.getEvents);
 app.get('/utilizatori', UserController.getAll);
 app.get('/emails', UserController.getEmails);
-app.delete('/event/:id', EventController.deleteEvent);
+app.delete('/event/:id', EventController.deleteEventById);
 
 app.get('/event/confirm/:eventId/:userEmail', EventController.confirmAttendance);
 

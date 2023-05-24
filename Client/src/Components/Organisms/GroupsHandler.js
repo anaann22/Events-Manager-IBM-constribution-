@@ -52,6 +52,7 @@ const GroupList = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const isAdminUser = localStorage.getItem("isAdmin") === 'true';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,15 +82,14 @@ const GroupList = () => {
 
   const handleEditGroup = (groupId) => {
     if(!isAdminUser)
-      {
-        setErrorMessage('You are not an admin user.');
-        setSuccessMessage('');
-        setSnackbarOpen(true);
-        return;
-      }else{
-        setEditGroupId(groupId);
-        setEditDialogOpen(true);
-      }
+    {
+      setErrorMessage('You are not an admin user.');
+      setSuccessMessage('');
+      setSnackbarOpen(true);
+      return;
+    }
+    setEditGroupId(groupId);
+    setEditDialogOpen(true);
   };
 
   const handleCloseEditDialog = () => {
@@ -116,9 +116,8 @@ const GroupList = () => {
       setSuccessMessage('');
       setSnackbarOpen(true);
       return;
-    }else{
-      setPersonsDialogOpen(true);
     }
+    setPersonsDialogOpen(true);
   };
 
   const handleClosePersonsDialog = () => {
@@ -133,7 +132,6 @@ const GroupList = () => {
     setSearchTerm(event.target.value);
   };
 
-  const isAdminUser = localStorage.getItem("isAdmin") === 'true';
   const createGroup = async () => {
     if(!isAdminUser)
     {
@@ -173,9 +171,24 @@ const GroupList = () => {
   };
 
   const handleDeleteGroup = async (groupId) => {
-      if(!isAdminUser)
-      {
-        setErrorMessage('You are not an admin user.');
+    if(!isAdminUser)
+    {
+      setErrorMessage('You are not an admin user.');
+      setSuccessMessage('');
+      setSnackbarOpen(true);
+      return;
+    }
+    const confirmDelete = window.confirm('Are you sure you want to delete this group?');
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:4444/group/${groupId}`);
+        setSuccessMessage('The group has been deleted successfully.');
+        setErrorMessage('');
+        setSnackbarOpen(true);
+        setGroups(groups.filter((group) => group._id !== groupId)); // Actualizați lista de grupuri
+      } catch (error) {
+        console.error('Error:', error);
+        setErrorMessage('error deleting group.');
         setSuccessMessage('');
         setSnackbarOpen(true);
         return;

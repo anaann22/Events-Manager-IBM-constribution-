@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import axios from 'axios';
 import EventDet from '../Molecules/EventDet.js';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const localizer = momentLocalizer(moment);
 
@@ -12,18 +14,38 @@ const MyCalendar = () => {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [personsDialogOpen, setPersonsDialogOpen] = useState(false);
-  const navigate = useNavigate();
-
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-
-  const handleSnackbarClose = () => {
-      setSnackbarOpen(false);
-  };
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const isAdminUser = localStorage.getItem("isAdmin") === 'true';
+  const navigate = useNavigate();
 
   const handlePersonsDialogClose = () => {
     setPersonsDialogOpen(false);
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  const deleteEvent = async (id) => {
+    if (!isAdminUser) {
+      setSnackbarMessage('error: You are not an admin user.');
+      setSnackbarOpen(true);
+      return;
+    } else {
+      try {
+        await axios.delete(`http://localhost:4444/event/${id}`);
+        const updatedEvents = events.filter(event => event.id !== id);
+        setEvents(updatedEvents);
+        setSelectedEvent(null); // set selected event to null after deletion
+        setSnackbarMessage('Event deleted succesfully.');
+        setSnackbarOpen(true);
+      } catch (err) {
+        console.error(err);
+        setSnackbarMessage('An error has occurred at delete event.');
+        setSnackbarOpen(true);
+      }
+    }
   };
 
   useEffect(() => {
@@ -39,7 +61,7 @@ const MyCalendar = () => {
 
           setEvents(events);
         } else {
-          console.error('The answer is not an array.');
+          console.error('Răspunsul nu este un array.');
         }
       } catch (error) {
         console.error(error);
@@ -53,8 +75,6 @@ const MyCalendar = () => {
     setSelectedEvent(event);
     setPersonsDialogOpen(true);
   };
-
-
 
   return (
     <div style={{ height: '82.6vh', paddingRight: '10px' }}>
@@ -71,17 +91,16 @@ const MyCalendar = () => {
           event={selectedEvent}
           open={personsDialogOpen}
           handleClose={handlePersonsDialogClose}
-          snackbarOpen={snackbarOpen}
-          handleSnackbarClose={handleSnackbarClose}
-          errorMessage={errorMessage}
-          successMessage={successMessage}
+          onDelete={deleteEvent}
         />
       )}
-  
-
+      <Snackbar open={snackbarOpen} autoHideDuration={4000} onClose={handleSnackbarClose} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+        <MuiAlert onClose={handleSnackbarClose} severity={snackbarMessage.includes('error') ? 'error' : 'success'}>
+          {snackbarMessage}
+        </MuiAlert>
+      </Snackbar>
     </div>
   );
-  
-    };
+};
 
 export default MyCalendar;
