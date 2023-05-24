@@ -117,7 +117,15 @@ const GroupList = () => {
     setSearchTerm(event.target.value);
   };
 
+  const isAdminUser = localStorage.getItem("isAdmin") === 'true';
   const createGroup = async () => {
+    if(!isAdminUser)
+    {
+      setErrorMessage('You are not an admin user.');
+      setSuccessMessage('');
+      setSnackbarOpen(true);
+      return;
+    }
     if (groupName.trim() === '' || groupDescription.trim() === '' || groupEmails.length === 0) {
       setErrorMessage('All fields are required.');
       setSuccessMessage('');
