@@ -113,3 +113,27 @@ export const getEventById = async (req, res) => {
       });
     }
   };
+
+  export const deleteEventById = async (req, res) => {
+    try {
+        const eventId = req.params.eventId; 
+        const event = await EventModel.findByIdAndDelete(eventId);
+
+        if (!event) {
+            return res.status(404).json({
+                message: 'Event not found',
+            });
+        }
+
+        res.json({
+            message: 'Event successfully deleted',
+            deletedEvent: event
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: 'Internal Server Error',
+        });
+    }
+};
+

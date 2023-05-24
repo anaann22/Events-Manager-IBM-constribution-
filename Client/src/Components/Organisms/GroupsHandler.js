@@ -52,6 +52,7 @@ const GroupList = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const isAdminUser = localStorage.getItem("isAdmin") === 'true';
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,6 +81,13 @@ const GroupList = () => {
   }, [groups]); // Adăugați groups ca dependență
 
   const handleEditGroup = (groupId) => {
+    if(!isAdminUser)
+    {
+      setErrorMessage('You are not an admin user.');
+      setSuccessMessage('');
+      setSnackbarOpen(true);
+      return;
+    }
     setEditGroupId(groupId);
     setEditDialogOpen(true);
   };
@@ -102,6 +110,13 @@ const GroupList = () => {
   };
 
   const handleOpenPersonsDialog = () => {
+    if(!isAdminUser)
+    {
+      setErrorMessage('You are not an admin user.');
+      setSuccessMessage('');
+      setSnackbarOpen(true);
+      return;
+    }
     setPersonsDialogOpen(true);
   };
 
@@ -117,7 +132,6 @@ const GroupList = () => {
     setSearchTerm(event.target.value);
   };
 
-  const isAdminUser = localStorage.getItem("isAdmin") === 'true';
   const createGroup = async () => {
     if(!isAdminUser)
     {
@@ -157,6 +171,13 @@ const GroupList = () => {
   };
 
   const handleDeleteGroup = async (groupId) => {
+    if(!isAdminUser)
+    {
+      setErrorMessage('You are not an admin user.');
+      setSuccessMessage('');
+      setSnackbarOpen(true);
+      return;
+    }
     const confirmDelete = window.confirm('Are you sure you want to delete this group?');
     if (confirmDelete) {
       try {
