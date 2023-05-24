@@ -16,6 +16,7 @@ const MyCalendar = () => {
   const [personsDialogOpen, setPersonsDialogOpen] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const currentUser = JSON.parse(localStorage.getItem("user"));
   const isAdminUser = localStorage.getItem("isAdmin") === 'true';
   const navigate = useNavigate();
 
@@ -48,28 +49,33 @@ const MyCalendar = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const response = await axios.get('http://localhost:4444/event/getEvents');
-        if (Array.isArray(response.data)) {
-          const events = response.data.map(event => ({
-            ...event,
-            start: new Date(event.start),
-            end: new Date(event.end)
-          }));
-
-          setEvents(events);
-        } else {
-          console.error('Răspunsul nu este un array.');
-        }
-      } catch (error) {
-        console.error(error);
+  const fetchEvents = async () => {
+    try {
+      const response = await axios.get('http://localhost:4444/event/getEvents');
+      console.log(response.data);
+      if (Array.isArray(response.data)) {
+        // Filtrare evenimente în funcție de invitați
+        const userInvitedEvents = response.data.filter(event => event.person.includes(currentUser.email));
+  
+        const events = userInvitedEvents.map(event => ({
+          ...event,
+          start: new Date(event.start),
+          end: new Date(event.end)
+        }));
+  
+        setEvents(events);
+      } else {
+        console.error('Răspunsul nu este un array.');
       }
-    };
-
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  useEffect(() => {
     fetchEvents();
   }, []);
+  
 
   const handleSelectEvent = event => {
     setSelectedEvent(event);
