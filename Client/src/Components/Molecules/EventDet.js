@@ -3,6 +3,7 @@ import { Button } from '@mui/material';
 import moment from 'moment';
 import poza from '../../Images/corporate_pic.png'
 import {
+    Link,
     Dialog,
     DialogTitle,
     DialogContent,
@@ -15,7 +16,7 @@ import {
 const EventDet = ({ open, handleClose, event }) => {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-    const { title, start, end, details } = event || {};
+    const { title, start, end, details, location } = event || {};
 
     const formattedStart = start ? moment(start).format('DD/MM/YYYY h:mm a') : '';
     const formattedEnd = end ? moment(end).format('DD/MM/YYYY h:mm a') : '';
@@ -40,7 +41,12 @@ const EventDet = ({ open, handleClose, event }) => {
                     <Typography variant="subtitle1">Start date: {formattedStart}</Typography>
                     <Typography variant="subtitle1">End date: {formattedEnd}</Typography>
                     <Typography variant="subtitle1">Description: {details}</Typography>
-                    <Typography variant="subtitle1">Persons that are attending the event:</Typography>
+                    <Typography variant="subtitle1">
+                        Location: 
+                        <Link href={location} target="_blank" rel="noopener noreferrer">
+                            Location
+                        </Link>
+                    </Typography>                    <Typography variant="subtitle1">Persons that are attending the event:</Typography>
                     <div style={{
                             height: '100px', 
                             display: 'block',

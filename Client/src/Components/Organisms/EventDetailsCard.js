@@ -1,6 +1,8 @@
 import '../../Style/Profile.css';
 import calendar from '../../Images/calendar.png';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Container, TextField, Button, Typography, Box } from '@mui/material';
 import '../../Style/AddEventCard.css';
 import axios from 'axios';
 
@@ -48,6 +50,14 @@ const EventDetailsCard = () => {
               <p>Start Date: {event.startdate}</p>
               <p>End Date: {event.enddate}</p>
               <p>Details: {event.details}</p>
+              {event.locationLink && (
+                <p>
+                  Location: 
+                  <a href={event.location} target="_blank" rel="noopener noreferrer">
+                    Open in Google Maps
+                  </a>
+                </p>
+              )}
               {/* Afișează alte detalii despre eveniment */}
             </div>
           </>

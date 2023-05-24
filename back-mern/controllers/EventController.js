@@ -81,7 +81,9 @@ export const getEvents = async (req, res) => {
             start: new Date(event.startDate),
             end: new Date(event.endDate),
             details: event.eventDetails,
-            person: event.eventPerson
+            person: event.eventPerson,
+            personConfirmed: event.attendees,
+            location: event.eventLocation, // Adaugă câmpul pentru locație
         }));
 
         // Trimite evenimentele formatate înapoi către client

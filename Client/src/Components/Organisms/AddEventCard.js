@@ -13,6 +13,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import Persons from '../Molecules/Persons';
+import LocationPickerDialog from '../Molecules/LocationPickerDialog';
 
 
 const ProfileCard = () => {
@@ -27,7 +28,26 @@ const ProfileCard = () => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
   const [personsDialogOpen, personsSetDialogOpen] = useState(false);
+  const [locationDialogOpen, setLocationDialogOpen] = useState(false);
+  const [location, setLocation] = useState(null);
   const navigate = useNavigate();
+
+
+  const handleLocationDialogOpen = () => {
+    setLocationDialogOpen(true);
+  };
+
+  const handleLocationDialogClose = () => {
+    setLocationDialogOpen(false);
+  };
+
+  const handleLocationSelected = (location) => {
+    console.log(location);  // această linie va afișa locația în consolă
+    const locationUrl = `https://www.google.com/maps/?q=${location.lat},${location.lng}`;
+    setLocation(locationUrl);
+  };
+  
+  
 
   const handleSnackbarClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -57,6 +77,7 @@ const ProfileCard = () => {
         enddate,
         details,
         person,
+        location,
       });
       navigate('/calendar');
     } catch (error) {
@@ -72,7 +93,7 @@ const ProfileCard = () => {
     console.log(emails);
     const emailsArray = emails.split('\n');  // transformă stringul într-o listă de email-uri
     setEventPerson(emailsArray);  // setează lista de email-uri
-};
+  };
 
 
   const handleSubmit = async (e) => {
@@ -80,7 +101,7 @@ const ProfileCard = () => {
     setErrorMessage('');
     setWarningMessage('');
 
-    if (!title || !startdate || !enddate || !details || !person) {
+    if (!title || !startdate || !enddate || !details || !person || !location) {
       setErrorMessage('All fields are required.');
       setSnackbarMessage('All fields are required.');
       setSnackbarOpen(true);
@@ -120,6 +141,7 @@ const ProfileCard = () => {
         enddate,
         details,
         person,
+        location,
       });
       navigate('/calendar');
     } catch (error) {
@@ -144,10 +166,17 @@ const ProfileCard = () => {
           {errorMessage || warningMessage}
         </Alert>
       </Snackbar>
-      <Persons open={personsDialogOpen} 
-      handleClose={handlePersonsDialogClose} 
-      handleEmails={handleEmails} 
-      showEmailInput={true} />
+
+      <LocationPickerDialog
+        open={locationDialogOpen}
+        onClose={handleLocationDialogClose}
+        onLocationSelected={handleLocationSelected}
+      />
+
+      <Persons open={personsDialogOpen}
+        handleClose={handlePersonsDialogClose}
+        handleEmails={handleEmails}
+        showEmailInput={true} />
       <Dialog
         open={dialogOpen}
         onClose={handleDialogClose}
@@ -224,6 +253,11 @@ const ProfileCard = () => {
             <div className="form-group">
               <Button onClick={handlePersonsOpenDialog}>Select emails</Button>
             </div>
+            <Button
+              onClick={handleLocationDialogOpen}
+            >
+              Select Location
+            </Button>
             <button type="submit" className="btn btn-primary">
               Submit
             </button>
