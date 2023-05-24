@@ -7,7 +7,6 @@ import ProfilePage from './Components/Pages/MyProfile';
 import IntroPage from './Components/Pages/Intro';
 import EventM from './Components/Pages/EventM';
 import GroupsAdd from './Components/Pages/GroupsAdd';
-import EventDetails from './Components/Pages/EventDetails';
 import './Style/App.css';
 import ProtectedRoute from './ProtectedRoute'; // importați ProtectedRoute
 
@@ -29,7 +28,6 @@ function App() {
 
         {/* <Route path="/editprofile" element={<EditProfilePage />} /> */}
         <Route path="groups" element={<GroupsAdd />} />
-        <Route path="/event" element={<EventDetails />} />
       </Routes>
     </Router>
   );

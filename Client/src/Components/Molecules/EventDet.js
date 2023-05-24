@@ -44,7 +44,7 @@ const EventDet = ({ open, handleClose, event }) => {
                     <Typography variant="subtitle1">
                         Location: 
                         <Link href={location} target="_blank" rel="noopener noreferrer">
-                            Location
+                            Open on Google Maps
                         </Link>
                     </Typography>                    
                     <Typography variant="subtitle1">Persons that are attending the event:</Typography>

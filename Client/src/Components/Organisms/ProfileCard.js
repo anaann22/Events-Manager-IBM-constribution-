@@ -18,7 +18,7 @@ const ProfileCard = () => {
   return (
     <div className="card">
       <div className="card-header">
-        <h2 className="card-title">Profile detalis</h2>
+        <h2 className="card-title">Profile details</h2>
       </div>
       <div className="card-body">
         <img src={userF} alt="Profile Picture" className="profile-profile" />
