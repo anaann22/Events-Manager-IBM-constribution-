@@ -191,24 +191,8 @@ const GroupList = () => {
         setErrorMessage('error deleting group.');
         setSuccessMessage('');
         setSnackbarOpen(true);
-        return;
-      }else{
-        const confirmDelete = window.confirm('Are you sure you want to delete this group?');
-        if (confirmDelete) {
-          try {
-            await axios.delete(`http://localhost:4444/group/${groupId}`);
-            setSuccessMessage('The group has been deleted successfully.');
-            setErrorMessage('');
-            setSnackbarOpen(true);
-            setGroups(groups.filter((group) => group._id !== groupId)); // Actualizați lista de grupuri
-          } catch (error) {
-            console.error('Error:', error);
-            setErrorMessage('error deleting group.');
-            setSuccessMessage('');
-            setSnackbarOpen(true);
-          }
-        }
       }
+    }
   };
 
   const filteredGroups = groups.filter((group) => {
