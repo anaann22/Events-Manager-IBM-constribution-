@@ -101,7 +101,7 @@ const ProfileCard = () => {
     setErrorMessage('');
     setWarningMessage('');
 
-    if (!title || !startdate || !enddate || !details || !person) {
+    if (!title || !startdate || !enddate || !details || !person) {  // || !location
       setErrorMessage('All fields are required.');
       setSnackbarMessage('All fields are required.');
       setSnackbarOpen(true);
