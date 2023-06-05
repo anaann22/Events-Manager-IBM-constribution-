@@ -55,15 +55,24 @@ const MyCalendar = () => {
       console.log(response.data);
       if (Array.isArray(response.data)) {
         // Filtrare evenimente în funcție de invitați
+        if(isAdminUser===false){
         const userInvitedEvents = response.data.filter(event => event.person.includes(currentUser.email));
-  
         const events = userInvitedEvents.map(event => ({
           ...event,
           start: new Date(event.start),
           end: new Date(event.end)
         }));
-  
         setEvents(events);
+        }
+        else{
+          const userInvitedEvents = response.data;
+          const events = userInvitedEvents.map(event => ({
+            ...event,
+            start: new Date(event.start),
+            end: new Date(event.end)
+          }));
+          setEvents(events);
+        }
       } else {
         console.error('Răspunsul nu este un array.');
       }
