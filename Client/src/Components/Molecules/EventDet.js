@@ -55,9 +55,11 @@ const EventDet = ({ open, handleClose, event, onDelete, ...rest }) => {
                                 Open on Google Maps
                             </Link>
                         </Typography>
-                        <Typography variant="subtitle1">Persons that are attending the event:</Typography>
+                        <Typography variant="subtitle1">Persons that are invited to the event:</Typography>
                         <div style={{
-                            height: '100px',
+                            minHeight: '50px',
+                            maxHeight: '100px',
+                            minWidth: '200px',
                             display: 'block',
                             overflowY: 'auto',
                             padding: '10px',
@@ -67,6 +69,23 @@ const EventDet = ({ open, handleClose, event, onDelete, ...rest }) => {
                             marginTop: '10px'
                         }}>
                             {event && event.person && event.person.map((email, index) => (
+                                <Typography key={index} variant="subtitle1">{email}</Typography>
+                            ))}
+                        </div>
+                        <Typography variant="subtitle1">Persons that are attending the event:</Typography>
+                        <div style={{
+                            minHeight: '50px',
+                            maxHeight: '100px',
+                            minWidth: '200px',
+                            display: 'block',
+                            overflowY: 'auto',
+                            padding: '10px',
+                            border: '1px solid #ddd',
+                            borderRadius: '5px',
+                            backgroundColor: '#f9f9f9',
+                            marginTop: '10px'
+                        }}>
+                            {event && event.person && event.personConfirmed.map((email, index) => (
                                 <Typography key={index} variant="subtitle1">{email}</Typography>
                             ))}
                         </div>
