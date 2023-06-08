@@ -65,7 +65,7 @@ const MyCalendar = () => {
   
         setEvents(events);
       } else {
-        console.error('Răspunsul nu este un array.');
+        console.error('The answer is not an array.');
       }
     } catch (error) {
       console.error(error);
